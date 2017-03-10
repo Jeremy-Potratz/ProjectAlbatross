@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		10C0B05D1E73331F002E99A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B05C1E73331F002E99A0 /* AppDelegate.swift */; };
 		10C0B05F1E73331F002E99A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B05E1E73331F002E99A0 /* ViewController.swift */; };
-		10C0B0621E73331F002E99A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10C0B0601E73331F002E99A0 /* Main.storyboard */; };
 		10C0B0651E73331F002E99A0 /* ProjectAlbatross.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B0631E73331F002E99A0 /* ProjectAlbatross.xcdatamodeld */; };
 		10C0B0671E73331F002E99A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10C0B0661E73331F002E99A0 /* Assets.xcassets */; };
 		10C0B06A1E73331F002E99A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10C0B0681E73331F002E99A0 /* LaunchScreen.storyboard */; };
 		10C0B0751E73331F002E99A0 /* ProjectAlbatrossTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B0741E73331F002E99A0 /* ProjectAlbatrossTests.swift */; };
 		10C0B0801E733320002E99A0 /* ProjectAlbatrossUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B07F1E733320002E99A0 /* ProjectAlbatrossUITests.swift */; };
+		10C0B0901E73355B002E99A0 /* TabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B08F1E73355B002E99A0 /* TabController.swift */; };
+		10C0B0921E7339A7002E99A0 /* PlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B0911E7339A7002E99A0 /* PlayerTableViewController.swift */; };
+		10C0B0961E733ACB002E99A0 /* CourseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B0951E733ACB002E99A0 /* CourseTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +40,6 @@
 		10C0B0591E73331F002E99A0 /* ProjectAlbatross.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectAlbatross.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10C0B05C1E73331F002E99A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10C0B05E1E73331F002E99A0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		10C0B0611E73331F002E99A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		10C0B0641E73331F002E99A0 /* ProjectAlbatross.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectAlbatross.xcdatamodel; sourceTree = "<group>"; };
 		10C0B0661E73331F002E99A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10C0B0691E73331F002E99A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +50,9 @@
 		10C0B07B1E73331F002E99A0 /* ProjectAlbatrossUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectAlbatrossUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		10C0B07F1E733320002E99A0 /* ProjectAlbatrossUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAlbatrossUITests.swift; sourceTree = "<group>"; };
 		10C0B0811E733320002E99A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10C0B08F1E73355B002E99A0 /* TabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabController.swift; path = ../TabController.swift; sourceTree = "<group>"; };
+		10C0B0911E7339A7002E99A0 /* PlayerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewController.swift; sourceTree = "<group>"; };
+		10C0B0951E733ACB002E99A0 /* CourseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CourseTableViewController.swift; path = ../CourseTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +103,10 @@
 		10C0B05B1E73331F002E99A0 /* ProjectAlbatross */ = {
 			isa = PBXGroup;
 			children = (
+				10C0B08F1E73355B002E99A0 /* TabController.swift */,
+				10C0B0971E733B39002E99A0 /* TableViewControllers */,
 				10C0B05C1E73331F002E99A0 /* AppDelegate.swift */,
 				10C0B05E1E73331F002E99A0 /* ViewController.swift */,
-				10C0B0601E73331F002E99A0 /* Main.storyboard */,
 				10C0B0661E73331F002E99A0 /* Assets.xcassets */,
 				10C0B0681E73331F002E99A0 /* LaunchScreen.storyboard */,
 				10C0B06B1E73331F002E99A0 /* Info.plist */,
@@ -126,6 +131,15 @@
 				10C0B0811E733320002E99A0 /* Info.plist */,
 			);
 			path = ProjectAlbatrossUITests;
+			sourceTree = "<group>";
+		};
+		10C0B0971E733B39002E99A0 /* TableViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				10C0B0911E7339A7002E99A0 /* PlayerTableViewController.swift */,
+				10C0B0951E733ACB002E99A0 /* CourseTableViewController.swift */,
+			);
+			name = TableViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,7 +251,6 @@
 			files = (
 				10C0B06A1E73331F002E99A0 /* LaunchScreen.storyboard in Resources */,
 				10C0B0671E73331F002E99A0 /* Assets.xcassets in Resources */,
-				10C0B0621E73331F002E99A0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,8 +275,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10C0B0921E7339A7002E99A0 /* PlayerTableViewController.swift in Sources */,
 				10C0B05F1E73331F002E99A0 /* ViewController.swift in Sources */,
+				10C0B0901E73355B002E99A0 /* TabController.swift in Sources */,
 				10C0B0651E73331F002E99A0 /* ProjectAlbatross.xcdatamodeld in Sources */,
+				10C0B0961E733ACB002E99A0 /* CourseTableViewController.swift in Sources */,
 				10C0B05D1E73331F002E99A0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,14 +316,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		10C0B0601E73331F002E99A0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				10C0B0611E73331F002E99A0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		10C0B0681E73331F002E99A0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
