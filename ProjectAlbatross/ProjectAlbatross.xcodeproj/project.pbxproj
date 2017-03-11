@@ -17,6 +17,9 @@
 		10C0B0901E73355B002E99A0 /* TabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B08F1E73355B002E99A0 /* TabController.swift */; };
 		10C0B0921E7339A7002E99A0 /* PlayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B0911E7339A7002E99A0 /* PlayerTableViewController.swift */; };
 		10C0B0961E733ACB002E99A0 /* CourseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B0951E733ACB002E99A0 /* CourseTableViewController.swift */; };
+		D24F773C1E73792B00A48A90 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F773B1E73792B00A48A90 /* AddViewController.swift */; };
+		D2FB4D381E736748000C7BB4 /* NineStatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FB4D371E736748000C7BB4 /* NineStatsTableViewController.swift */; };
+		D2FB4D3A1E736758000C7BB4 /* EighteenStatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FB4D391E736758000C7BB4 /* EighteenStatsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		10C0B08F1E73355B002E99A0 /* TabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabController.swift; path = ../TabController.swift; sourceTree = "<group>"; };
 		10C0B0911E7339A7002E99A0 /* PlayerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewController.swift; sourceTree = "<group>"; };
 		10C0B0951E733ACB002E99A0 /* CourseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CourseTableViewController.swift; path = ../CourseTableViewController.swift; sourceTree = "<group>"; };
+		D24F773B1E73792B00A48A90 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		D2FB4D371E736748000C7BB4 /* NineStatsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NineStatsTableViewController.swift; sourceTree = "<group>"; };
+		D2FB4D391E736758000C7BB4 /* EighteenStatsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EighteenStatsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				10C0B08F1E73355B002E99A0 /* TabController.swift */,
+				D24F773B1E73792B00A48A90 /* AddViewController.swift */,
 				10C0B0971E733B39002E99A0 /* TableViewControllers */,
 				10C0B05C1E73331F002E99A0 /* AppDelegate.swift */,
 				10C0B05E1E73331F002E99A0 /* ViewController.swift */,
@@ -138,6 +145,8 @@
 			children = (
 				10C0B0911E7339A7002E99A0 /* PlayerTableViewController.swift */,
 				10C0B0951E733ACB002E99A0 /* CourseTableViewController.swift */,
+				D2FB4D371E736748000C7BB4 /* NineStatsTableViewController.swift */,
+				D2FB4D391E736758000C7BB4 /* EighteenStatsTableViewController.swift */,
 			);
 			name = TableViewControllers;
 			sourceTree = "<group>";
@@ -210,6 +219,7 @@
 				TargetAttributes = {
 					10C0B0581E73331F002E99A0 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = JV99S7T257;
 						ProvisioningStyle = Automatic;
 					};
 					10C0B06F1E73331F002E99A0 = {
@@ -275,9 +285,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2FB4D3A1E736758000C7BB4 /* EighteenStatsTableViewController.swift in Sources */,
 				10C0B0921E7339A7002E99A0 /* PlayerTableViewController.swift in Sources */,
+				D24F773C1E73792B00A48A90 /* AddViewController.swift in Sources */,
 				10C0B05F1E73331F002E99A0 /* ViewController.swift in Sources */,
 				10C0B0901E73355B002E99A0 /* TabController.swift in Sources */,
+				D2FB4D381E736748000C7BB4 /* NineStatsTableViewController.swift in Sources */,
 				10C0B0651E73331F002E99A0 /* ProjectAlbatross.xcdatamodeld in Sources */,
 				10C0B0961E733ACB002E99A0 /* CourseTableViewController.swift in Sources */,
 				10C0B05D1E73331F002E99A0 /* AppDelegate.swift in Sources */,
@@ -424,11 +437,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = JV99S7T257;
 				INFOPLIST_FILE = ProjectAlbatross/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jotogatetz.ProjectAlbatross;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -436,11 +452,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = JV99S7T257;
 				INFOPLIST_FILE = ProjectAlbatross/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = jotogatetz.ProjectAlbatross;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
@@ -517,6 +536,7 @@
 				10C0B0861E733320002E99A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		10C0B0871E733320002E99A0 /* Build configuration list for PBXNativeTarget "ProjectAlbatrossTests" */ = {
 			isa = XCConfigurationList;
@@ -525,6 +545,7 @@
 				10C0B0891E733320002E99A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		10C0B08A1E733320002E99A0 /* Build configuration list for PBXNativeTarget "ProjectAlbatrossUITests" */ = {
 			isa = XCConfigurationList;
@@ -533,6 +554,7 @@
 				10C0B08C1E733320002E99A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

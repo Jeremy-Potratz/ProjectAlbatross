@@ -9,9 +9,10 @@
 import UIKit
 
 class TabController: UITabBarController {
-    
-    let addTab = { () -> ViewController in 
-        let vc = ViewController()
+    let screen = UIScreen.main.bounds
+    let addTab = { () -> AddViewController in
+        let screen = UIScreen.main.bounds
+        let vc = AddViewController()
         vc.tabBarItem = UITabBarItem(title: "Add", image: nil, tag: 2)
         return vc
     }()
@@ -27,12 +28,26 @@ class TabController: UITabBarController {
         vc.tabBarItem = UITabBarItem(title: "Courses", image: nil, tag: 1)
         return vc
     }()
+    
+    let nineTab = { () -> NineStatsTableViewController in
+        let vc = NineStatsTableViewController()
+        vc.tabBarItem = UITabBarItem(title: "Nine Holes", image: nil, tag: 3)
+        return vc
+    }()
+    
+    let eightTab = { () -> EighteenStatsTableViewController in
+        let vc = EighteenStatsTableViewController()
+        vc.tabBarItem = UITabBarItem(title: "Eighteen Holes", image: nil, tag: 4)
+        return vc
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addChildViewController(playerTab)
         self.addChildViewController(courseTab)
         self.addChildViewController(addTab)
+        self.addChildViewController(nineTab)
+        self.addChildViewController(eightTab)
         // Do any additional setup after loading the view.
     }
 
