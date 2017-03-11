@@ -20,6 +20,10 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     var nineView = UIView()
     var eightView = UIView()
     var mode = "nine"
+    var submitButton = UIButton()
+    let nineStats = ["fairways","putts","hundred","gir","sneaks","score","birds","shorts","oppoName","oppoScore"]
+    
+    let eightStats = ["fairwaysF","girF","puttsF","hundredF", "sneaksF", "birds", "shortsF","scoreF", "fairwaysB","girB","puttsB","hundredB","sneaksB","birdsB","shortsB","scoreB"]
     
     override func viewDidAppear(_ animated: Bool) {
         coursePicker.reloadAllComponents()
@@ -53,7 +57,83 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         self.view.addSubview(nineView)
         self.view.addSubview(eightView)
         self.view.addSubview(chooser)
+        //self.view.addSubview(textBoxContainer)
+    }
+    
+    func generateFields(){
+        for i in textBoxContainer.subviews{
+            i.removeFromSuperview()
+        }
+        if self.mode == "nine"{
+            //generate nine hole fields
+            var x = 5
+            var y = 5
+            var tag = 0
+            for i in nineStats{
+                let field = UITextField()
+                field.frame = CGRect(x: x, y: y, width: Int(textBoxContainer.frame.width / 2) - 5, height: 60)
+                field.placeholder = i
+                field.tag = tag
+                field.textAlignment = .center
+                field.backgroundColor = .white
+                field.layer.cornerRadius = CGFloat(5)
+                textBoxContainer.addSubview(field)
+                if i == "sneaks"{
+                    x = Int(textBoxContainer.frame.width) / 2 + 5
+                    print(x)
+                    y = 5
+                }
+                else{
+                    y += 70
+                }
+                
+                tag += 1
+            }
+            //self.view.addSubview(textBoxContainer)
+        }
+        else{
+            //generate eighteen hole fields
+            var x = 5
+            var y = 5
+            var tag = 0
+            for i in eightStats{
+                let field = UITextField()
+                field.frame = CGRect(x: x, y: y, width: Int(textBoxContainer.frame.width / 2) - 5, height: 50)
+                field.placeholder = i
+                field.tag = tag
+                field.textAlignment = .center
+                field.backgroundColor = .white
+                field.layer.cornerRadius = CGFloat(5)
+                textBoxContainer.addSubview(field)
+                if i == "scoreF"{
+                    x = Int(textBoxContainer.frame.width) / 2 + 5
+                    print(x)
+                    y = 5
+                }
+                else{
+                    y += 70
+                }
+                
+                tag += 1
+            }
+            //self.view.addSubview(textBoxContainer)
+        }
+        submitButton.frame = CGRect(x: 0, y: textBoxContainer.frame.height - 170, width: textBoxContainer.frame.width, height: 50)
+        submitButton.backgroundColor = .blue
+        submitButton.addTarget(self, action: #selector(AddViewController.submit), for: .touchUpInside)
+        submitButton.layer.cornerRadius = CGFloat(8)
+        let submitLabel = UILabel()
+        submitLabel.frame = CGRect(x: 0, y: 0, width: submitButton.frame.width, height: submitButton.frame.height)
+        submitLabel.textAlignment = .center
+        submitLabel.text = "Submit"
+        submitLabel.textColor = .black
+        submitButton.addSubview(submitLabel)
+        textBoxContainer.addSubview(submitButton)
         self.view.addSubview(textBoxContainer)
+    }
+    
+    func submit(){
+        print("Submit")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -62,11 +142,13 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             self.mode = "eighteen"
             self.eightView.backgroundColor = .gray
             self.nineView.backgroundColor = .lightGray
+            self.generateFields()
         }
         else if nineView.frame.contains(point!){
             self.mode = "nine"
             self.eightView.backgroundColor = .lightGray
             self.nineView.backgroundColor = .gray
+            self.generateFields()
         }
         
     }
@@ -95,6 +177,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         super.viewDidLoad()
         self.initLeft()
         self.initRight()
+        self.generateFields()
         self.view.backgroundColor = .lightGray
         
 
