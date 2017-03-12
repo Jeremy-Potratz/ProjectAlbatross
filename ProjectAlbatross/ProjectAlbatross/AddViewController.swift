@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -15,12 +17,19 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     let courses = ["Golfc", "c"]
     var playerPicker = UIPickerView()
     var coursePicker = UIPickerView()
+    var datePicker = UIDatePicker()
     var chooser = UISegmentedControl()
     var textBoxContainer = UIView()
     var nineView = UIView()
     var eightView = UIView()
     var mode = "nine"
     var submitButton = UIButton()
+    var isNew : Bool = true
+    var fireBaseNine : [masterNine] = []
+    var fireBaseEight : [masterEighteen] = []
+    var name : String!
+    var date : String!
+    var course : String!
     let nineStats = ["fairways","putts","hundred","gir","sneaks","score","birds","shorts","oppoName","oppoScore"]
     
     let eightStats = ["fairwaysF","girF","puttsF","hundredF", "sneaksF", "birds", "shortsF","scoreF", "fairwaysB","girB","puttsB","hundredB","sneaksB","birdsB","shortsB","scoreB"]
@@ -28,6 +37,14 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     override func viewDidAppear(_ animated: Bool) {
         coursePicker.reloadAllComponents()
         playerPicker.reloadAllComponents()
+    }
+    
+    func reference(withPath path: String) -> FIRDatabaseReference{
+        
+        let ref = FIRDatabase.database().reference(withPath: path)
+        
+        return ref
+        
     }
     
     func initRight(){
@@ -134,6 +151,34 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     func submit(){
         print("Submit")
+        print(self.mode)
+        print(isNew)
+        
+        if isNew {
+            if mode == "nine"{
+                
+                let nineStat = masterNine(name: name, birdies: Int(((textBoxContainer.subviews[6] as? UITextField)?.text)!)!, putts: Int(((textBoxContainer.subviews[1] as? UITextField)?.text)!)!, short: Int(((textBoxContainer.subviews[7] as? UITextField)?.text)!)!, hundo: Int(((textBoxContainer.subviews[2] as? UITextField)?.text)!)!, greens: Int(((textBoxContainer.subviews[3] as? UITextField)?.text)!)!, score: Int(((textBoxContainer.subviews[5] as? UITextField)?.text)!)!, sneaks: Int(((textBoxContainer.subviews[4] as? UITextField)?.text)!)!, fairways: Int(((textBoxContainer.subviews[0] as? UITextField)?.text)!)!, date: date, opponentScore: Int(((textBoxContainer.subviews[9] as? UITextField)?.text)!)!, opponentName: ((textBoxContainer.subviews[8] as? UITextField)?.text)!)
+                
+                let nineStatRef = self.reference(withPath: "Nine").child(name.lowercased()).child(date)
+                
+                nineStatRef.setValue(nineStat.toAnyObject())
+
+            }else{
+                
+                
+                
+            }
+        }else{
+            if mode == "nine"{
+                
+                
+            }else{
+                
+                
+                
+            }
+        }
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -154,7 +199,9 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     
     func initLeft(){
-        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screen.width / 2, height: screen.height / 3))
+        
+        // need to declare this at top somehow so can access it at bottom to reference date after initial load
+        datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screen.width / 2, height: screen.height / 3))
         datePicker.datePickerMode = .date
         datePicker.backgroundColor = UIColor(colorLiteralRed: 101 / 255, green: 244 / 255, blue: 66 / 255, alpha: 1)
         
@@ -180,7 +227,15 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         self.generateFields()
         self.view.backgroundColor = .lightGray
         
+        name = players[0]
+        course = courses[0]
 
+        let dateFormatter = DateFormatter()
+        let strDate = dateFormatter.string(from: datePicker.date)
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        date = strDate
+        print(strDate)
+        
         // Do any additional setup after loading the view.
     }
 
@@ -204,10 +259,24 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView == self.playerPicker{
+            
             return players[row]
         }
         else{
             return courses[row]
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == self.playerPicker{
+            name = players[row]
+        }else if pickerView == self.coursePicker{
+            course = courses[row]
+        }else{
+            let dateFormatter = DateFormatter()
+            let strDate = dateFormatter.string(from: datePicker.date)
+            dateFormatter.dateFormat = "MMM d, yyyy"
+            date = strDate
+            print(strDate)
         }
     }
 

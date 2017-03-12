@@ -1,0 +1,6 @@
+framework module Pods_ProjectAlbatross {
+  umbrella header "Pods-ProjectAlbatross-umbrella.h"
+
+  export *
+  module * { export * }
+}

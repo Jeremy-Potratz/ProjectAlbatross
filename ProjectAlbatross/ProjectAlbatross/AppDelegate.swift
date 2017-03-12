@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = TabController()
         application.isStatusBarHidden = true
         window?.makeKeyAndVisible()
+        FIRApp.configure()
+        
         // Override point for customization after application launch.
         return true
     }
