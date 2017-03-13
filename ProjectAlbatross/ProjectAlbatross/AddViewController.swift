@@ -10,6 +10,17 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
+class statField : UITextField{
+    var actualValue : String
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     let screen = UIScreen.main.bounds
@@ -40,7 +51,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     
     func reference(withPath path: String) -> FIRDatabaseReference{
-        
         let ref = FIRDatabase.database().reference(withPath: path)
         
         return ref
