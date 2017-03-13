@@ -11,6 +11,19 @@ import Firebase
 import FirebaseDatabase
 
 class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func fetchNine(){
+        
+        
+        
+    }
+    
+    func fetchEighteen(){
+        
+        
+        
+    }
+    
 
     let screen = UIScreen.main.bounds
     let players = ["Scott", "Jimmy"]
@@ -27,6 +40,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     var isNew : Bool = true
     var fireBaseNine : [masterNine] = []
     var fireBaseEight : [masterEighteen] = []
+    var dateLabel = UILabel()
     var name : String!
     var date : String!
     var course : String!
@@ -37,6 +51,17 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     override func viewDidAppear(_ animated: Bool) {
         coursePicker.reloadAllComponents()
         playerPicker.reloadAllComponents()
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        
+        let strDate = dateFormatter.string(from: datePicker.date)
+        
+        dateLabel.text = strDate
+        date = strDate
     }
     
     func reference(withPath path: String) -> FIRDatabaseReference{
@@ -198,12 +223,33 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         
     }
     
+    func dateDeclare(){
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        
+        let strDate = dateFormatter.string(from: datePicker.date)
+
+        dateLabel.text = strDate
+        date = strDate
+    }
+
+    
     func initLeft(){
         
         // need to declare this at top somehow so can access it at bottom to reference date after initial load
         datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screen.width / 2, height: screen.height / 3))
         datePicker.datePickerMode = .date
         datePicker.backgroundColor = UIColor(colorLiteralRed: 101 / 255, green: 244 / 255, blue: 66 / 255, alpha: 1)
+        
+        datePicker.addTarget(self, action: #selector(AddViewController.dateDeclare), for: .valueChanged)
+        
+        
+        dateLabel = UILabel(frame: CGRect(x: 0, y: 50, width: screen.width / 2, height: screen.width / 3))
+        dateLabel.textColor = .black
+        dateLabel.text = "Hello"
         
         playerPicker = UIPickerView(frame: CGRect(x: 0, y: datePicker.frame.height, width: screen.width / 2, height: screen.height / 3))
         playerPicker.delegate = self
@@ -216,6 +262,8 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         coursePicker.backgroundColor = UIColor(colorLiteralRed: 101 / 255, green: 244 / 255, blue: 66 / 255, alpha: 1)
     
         self.view.addSubview(datePicker)
+        self.view.addSubview(dateLabel)
+        view.bringSubview(toFront: dateLabel)
         self.view.addSubview(playerPicker)
         self.view.addSubview(coursePicker)
     }
@@ -229,12 +277,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         
         name = players[0]
         course = courses[0]
-
-        let dateFormatter = DateFormatter()
-        let strDate = dateFormatter.string(from: datePicker.date)
-        dateFormatter.dateFormat = "MMM d, yyyy"
-        date = strDate
-        print(strDate)
         
         // Do any additional setup after loading the view.
     }
@@ -266,17 +308,16 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             return courses[row]
         }
     }
+    
+    
+
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == self.playerPicker{
             name = players[row]
+            print("yo")
         }else if pickerView == self.coursePicker{
             course = courses[row]
-        }else{
-            let dateFormatter = DateFormatter()
-            let strDate = dateFormatter.string(from: datePicker.date)
-            dateFormatter.dateFormat = "MMM d, yyyy"
-            date = strDate
-            print(strDate)
         }
     }
 
