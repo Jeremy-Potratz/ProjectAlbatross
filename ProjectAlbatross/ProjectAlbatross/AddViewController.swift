@@ -12,19 +12,53 @@ import FirebaseDatabase
 
 class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    func fetchNine(){
+    func fetchFirebase(path: String, thisDate: String){
         
+        if path == "Nine"{
+        print("path")
+        reference(withPath: "Nine").observe(.value, with: { (snapshot) in
+            var newItems : [masterNine] = []
+            print("whaddup")
+            for item in snapshot.children{
+                let masterItem = masterNine(snapshot: item as! FIRDataSnapshot, theDate: thisDate)
+                
+                if masterItem == nil{
+                    
+                }else{
+                    
+                    newItems.append((masterItem)!)
+                }
+                
+            }
+            
+            self.fireBaseNine = newItems
+        })
         
+        }else if path == "Eight"{
+            
+            reference(withPath: "Eighteen").observe(.value, with: { (snapshot) in
+                var newItems : [masterEighteen] = []
+                
+                for item in snapshot.children{
+                    let masterItem = masterEighteen(snapshot: item as! FIRDataSnapshot, theDate: thisDate)
+                    
+                    if masterItem == nil{
+                        
+                    }else{
+                        
+                        newItems.append((masterItem)!)
+                        
+                    }
+                    
+                }
+                
+                self.fireBaseEight = newItems
+            })
+            
+        }
         
     }
     
-    func fetchEighteen(){
-        
-        
-        
-    }
-    
-
     let screen = UIScreen.main.bounds
     let players = ["Scott", "Jimmy"]
     let courses = ["Golfc", "c"]
@@ -52,16 +86,30 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         coursePicker.reloadAllComponents()
         playerPicker.reloadAllComponents()
         
-        let dateFormatter = DateFormatter()
+        if self.mode == "nine"{
+            print(fireBaseNine)
+            
+            let filter = fireBaseNine.filter {$0.name == name && $0.date == date}
+            
+            //run through all the tags
+            
+            (textBoxContainer.subviews[0] as! UITextField).text = String(filter[0].fairways)
+            (textBoxContainer.subviews[1] as! UITextField).text = String(filter[0].putts)
+            (textBoxContainer.subviews[2] as! UITextField).text = String(filter[0].hundo)
+            (textBoxContainer.subviews[3] as! UITextField).text = String(filter[0].greens)
+            (textBoxContainer.subviews[4] as! UITextField).text = String(filter[0].sneaks)
+            (textBoxContainer.subviews[5] as! UITextField).text = String(filter[0].score)
+            (textBoxContainer.subviews[6] as! UITextField).text = String(filter[0].birdies)
+            (textBoxContainer.subviews[7] as! UITextField).text = String(filter[0].short)
+            (textBoxContainer.subviews[8] as! UITextField).text = String(filter[0].opponentName)
+            (textBoxContainer.subviews[9] as! UITextField).text = String(filter[0].opponentScore)
+
+            print(String(describing: filter[0]))
+            
+        }else{
+            let filter = fireBaseEight.filter {$0.name == name && $0.date == date}
+        }
         
-        dateFormatter.dateStyle = DateFormatter.Style.short
-        
-        dateFormatter.dateFormat = "MMM d, yyyy"
-        
-        let strDate = dateFormatter.string(from: datePicker.date)
-        
-        dateLabel.text = strDate
-        date = strDate
     }
     
     func reference(withPath path: String) -> FIRDatabaseReference{
@@ -277,6 +325,25 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         
         name = players[0]
         course = courses[0]
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        
+        let strDate = dateFormatter.string(from: datePicker.date)
+        
+        dateLabel.text = strDate
+        date = strDate
+        
+        if self.mode == "nine"{
+            print("toNine")
+            fetchFirebase(path: "Nine", thisDate: date)
+        }else{
+            fetchFirebase(path: "Eight", thisDate: date)
+        }
+        
         
         // Do any additional setup after loading the view.
     }
