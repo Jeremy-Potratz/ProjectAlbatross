@@ -10,14 +10,31 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-class statField : UITextField{
-    var actualValue : String
+class statField : UITextField, UITextFieldDelegate{
+    var rawValue : String?
     override init(frame: CGRect) {
+        print("Init")
         super.init(frame: frame)
+        self.delegate = self
+        self.rawValue = nil
+        self.textAlignment = .center
+        self.backgroundColor = .white
+        self.layer.cornerRadius = CGFloat(5)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("Done")
+        self.rawValue = self.text
+        self.text = "\(self.placeholder!): \(self.rawValue!)"
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("Begin")
+        self.text = ""
     }
 }
 
@@ -58,11 +75,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     
     func initRight(){
-//        chooser = UISegmentedControl(items: ["Nine", "Eighteen"])
-//        chooser.frame = CGRect(x: screen.width * 3 / 4 - (screen.width / 2 - 50) / 2, y: 15, width: screen.width / 2 - 50, height: 50)
-//        chooser.selectedSegmentIndex = 0
-//        chooser.isOpaque = false
-        
         nineView.frame = CGRect(x: Int(screen.width / 2), y: 0, width: Int(screen.width / 4), height: 100)
         nineView.backgroundColor = .gray
         let nineLabel = UILabel(frame: CGRect(x: 0, y: 0, width: nineView.frame.width, height: nineView.frame.height))
@@ -97,13 +109,11 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             var y = 5
             var tag = 0
             for i in nineStats{
-                let field = UITextField()
+                let field = statField()
                 field.frame = CGRect(x: x, y: y, width: Int(textBoxContainer.frame.width / 2) - 5, height: 60)
                 field.placeholder = i
+                field.rawValue = i
                 field.tag = tag
-                field.textAlignment = .center
-                field.backgroundColor = .white
-                field.layer.cornerRadius = CGFloat(5)
                 textBoxContainer.addSubview(field)
                 if i == "sneaks"{
                     x = Int(textBoxContainer.frame.width) / 2 + 5
@@ -124,13 +134,11 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             var y = 5
             var tag = 0
             for i in eightStats{
-                let field = UITextField()
+                let field = statField()
                 field.frame = CGRect(x: x, y: y, width: Int(textBoxContainer.frame.width / 2) - 5, height: 50)
                 field.placeholder = i
+                field.rawValue = i
                 field.tag = tag
-                field.textAlignment = .center
-                field.backgroundColor = .white
-                field.layer.cornerRadius = CGFloat(5)
                 textBoxContainer.addSubview(field)
                 if i == "scoreF"{
                     x = Int(textBoxContainer.frame.width) / 2 + 5
