@@ -54,10 +54,8 @@ struct masterNine{
         if snapshotValue[theDate]?["name"] == nil{
             
             return nil
-            print("ALLIE")
             
         }else{
-            print("CHEEZIT")
             
             name = (snapshotValue[theDate]!["name"] as! String)
             date = (snapshotValue[theDate]!["date"] as! String)

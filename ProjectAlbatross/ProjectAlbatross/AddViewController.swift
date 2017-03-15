@@ -12,55 +12,73 @@ import FirebaseDatabase
 
 class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    
-    func fetchFirebase(path: String, thisDate: String, completion : (_ success: Bool) -> Void){
+    func firebaseNineFUnc(path: String, thisDate : String) -> [masterNine]{
         print("JEREMY")
+        var returnerArray : [masterNine] = []
+
         if path == "Nine"{
-        print(thisDate)
-        
-        reference(withPath: "Nine").observe(.value, with: { (snapshot) in
-            var newItems : [masterNine] = []
-            print("whaddup")
-            for item in snapshot.children{
-                let masterItem = masterNine(snapshot: item as! FIRDataSnapshot, theDate: thisDate)
-                
-                if masterItem == nil{
-                    
-                }else{
-                    
-                    newItems.append((masterItem)!)
-                }
-                
-            }
+            print(thisDate)
             
-            self.fireBaseNine = newItems
-        })
-        
-        }else if path == "Eight"{
             
-            reference(withPath: "Eighteen").observe(.value, with: { (snapshot) in
-                var newItems : [masterEighteen] = []
-                
+            reference(withPath: "Nine").observe(.value, with: { (snapshot) in
+                var newItems : [masterNine] = []
+                print("whaddup")
                 for item in snapshot.children{
-                    let masterItem = masterEighteen(snapshot: item as! FIRDataSnapshot, theDate: thisDate)
+                    let masterItem = masterNine(snapshot: item as! FIRDataSnapshot, theDate: thisDate)
                     
                     if masterItem == nil{
                         
                     }else{
                         
                         newItems.append((masterItem)!)
-                        
                     }
                     
                 }
                 
-                self.fireBaseEight = newItems
+                returnerArray = newItems
+                
+                let filter = returnerArray.filter {$0.name == self.name && $0.date == self.date}
+                
+                //run through all the tags
+                
+                if filter.count != 0{
+                    print(String(describing: filter[0]))
+                    
+                    (self.textBoxContainer.subviews[0] as! UITextField).text = String(filter[0].fairways)
+                    (self.textBoxContainer.subviews[1] as! UITextField).text = String(filter[0].putts)
+                    (self.textBoxContainer.subviews[2] as! UITextField).text = String(filter[0].hundo)
+                    (self.textBoxContainer.subviews[3] as! UITextField).text = String(filter[0].greens)
+                    (self.textBoxContainer.subviews[4] as! UITextField).text = String(filter[0].sneaks)
+                    (self.textBoxContainer.subviews[5] as! UITextField).text = String(filter[0].score)
+                    (self.textBoxContainer.subviews[6] as! UITextField).text = String(filter[0].birdies)
+                    (self.textBoxContainer.subviews[7] as! UITextField).text = String(filter[0].short)
+                    (self.textBoxContainer.subviews[8] as! UITextField).text = String(filter[0].opponentName)
+                    (self.textBoxContainer.subviews[9] as! UITextField).text = String(filter[0].opponentScore)
+                    
+                }else{
+                    
+                    (self.textBoxContainer.subviews[0] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[1] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[2] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[3] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[4] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[5] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[6] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[7] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[8] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[9] as! UITextField).text = ""
+                }
+
+                
             })
-            
         }
-        completion(true)
+
+        print(returnerArray)
+        return returnerArray
+        
     }
     
+
     let screen = UIScreen.main.bounds
     let players = ["Scott", "Jimmy"]
     let courses = ["Golfc", "c"]
@@ -88,9 +106,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         coursePicker.reloadAllComponents()
         playerPicker.reloadAllComponents()
         
-        
-
-
         
     }
     
@@ -221,10 +236,12 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                 
                 
                 
+                
             }
         }else{
             if mode == "nine"{
                 
+//                 reference(withPath: "Nine").child(nameLabel.text!.lowercased()).child(date).updateChildValues(["hundo": Int(hundredAndInTextField.text!)!, "greens" : Int(girTextField.text!)!, "score": Int(scoreTextField.text!)!,"sneaks" : Int(sneaksTextField.text!)!,"short" : Int(shortPutts.text!)!, "putts": Int(puttsTextField.text!)!, "birdies": Int(birdsTextField.text!)!, "fairways" : Int(fairwaysTextField.text!)!, "opponentName" : opponentName.text!, "opponentScore" : Int(opponentScore.text!)!])
                 
             }else{
                 
@@ -263,6 +280,10 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
 
         dateLabel.text = strDate
         date = strDate
+        
+        firebaseNineFUnc(path: "Nine", thisDate: date)
+
+        
     }
 
     
@@ -318,57 +339,8 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         dateLabel.text = strDate
         date = strDate
         
-        if self.mode == "nine"{
-            print("toNine")
-            
-            fetchFirebase(path: "Nine", thisDate: date) { (success) -> Void in
-                
-                if success{
+        fireBaseNine = firebaseNineFUnc(path: "Nine", thisDate: date)
 
-                    if self.mode == "nine"{
-                        print(fireBaseNine)
-                        //trying to filter nothin rnn
-                        
-                        let filter = fireBaseNine.filter {$0.name == name && $0.date == date}
-                        
-                        //run through all the tags
-                        
-                        if filter.count != 0{
-                            print(String(describing: filter[0]))
-                            
-                            
-                            (textBoxContainer.subviews[0] as! UITextField).text = String(filter[0].fairways)
-                            (textBoxContainer.subviews[1] as! UITextField).text = String(filter[0].putts)
-                            (textBoxContainer.subviews[2] as! UITextField).text = String(filter[0].hundo)
-                            (textBoxContainer.subviews[3] as! UITextField).text = String(filter[0].greens)
-                            (textBoxContainer.subviews[4] as! UITextField).text = String(filter[0].sneaks)
-                            (textBoxContainer.subviews[5] as! UITextField).text = String(filter[0].score)
-                            (textBoxContainer.subviews[6] as! UITextField).text = String(filter[0].birdies)
-                            (textBoxContainer.subviews[7] as! UITextField).text = String(filter[0].short)
-                            (textBoxContainer.subviews[8] as! UITextField).text = String(filter[0].opponentName)
-                            (textBoxContainer.subviews[9] as! UITextField).text = String(filter[0].opponentScore)
-                            
-                        }
-                        
-                    }else{
-                        let filter = fireBaseEight.filter {$0.name == name && $0.date == date}
-                    }
-
-                
-                }
-                
-            }
-        }else{
-            
-            fetchFirebase(path: "Eight", thisDate: date) { (success) -> Void in
-                
-                if success{
-                    //second task of filtering
-                }
-                
-            }
-        }
-        
        
         // Do any additional setup after loading the view.
     }
@@ -394,10 +366,16 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView == self.playerPicker{
             
+            name = players[row]
+
+            firebaseNineFUnc(path: "Nine", thisDate: date)
+
             return players[row]
         }
         else{
+            
             return courses[row]
+            
         }
     }
     
@@ -407,7 +385,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == self.playerPicker{
             name = players[row]
-            print("yo")
         }else if pickerView == self.coursePicker{
             course = courses[row]
         }
