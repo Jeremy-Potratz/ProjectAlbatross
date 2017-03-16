@@ -7,6 +7,7 @@ target 'ProjectAlbatross' do
   # Pods for ProjectAlbatross
   pod "Firebase/Core"
   pod "Firebase/Database"
+  pod "Charts"
 
   target 'ProjectAlbatrossTests' do
     inherit! :search_paths

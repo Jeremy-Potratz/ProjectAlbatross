@@ -7,17 +7,32 @@
 //
 
 import UIKit
+import Charts
 
 class NineStatsTableViewController: UITableViewController {
 
+    var barTView : CombinedChartView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        barTView = CombinedChartView(frame: CGRect(x: 200, y: 200, width: 500, height: 500))
+        updateChartWithData()
+        view.addSubview(barTView)
+        view.bringSubview(toFront: barTView)
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    func updateChartWithData() {
+        var dataEntries: [BarChartDataEntry] = []
+        var ccDataEntries : [CombinedChartData] = []
+        for i in 0...6 {
+            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(Double(i) * 2/Double(i) * sin(Double(i))))
+//            let ccDataEntry = CombinedChartData(dataSet: IChartDataSet.addEntry(4 as! IChartDataSet))
+            dataEntries.append(dataEntry)
+        }
+        let chartDataSet = BarChartDataSet(values: dataEntries, label: "Visitor count")
+        let chartData = BarChartData(dataSet: chartDataSet)
+        barTView.data = chartData
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,7 +49,7 @@ class NineStatsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 1
     }
 
     /*
