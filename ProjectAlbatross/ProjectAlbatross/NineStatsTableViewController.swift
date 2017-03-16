@@ -12,28 +12,73 @@ import Charts
 class NineStatsTableViewController: UITableViewController {
 
     var barTView : CombinedChartView!
+//    var combinedChartView :
     
     override func viewDidLoad() {
         super.viewDidLoad()
         barTView = CombinedChartView(frame: CGRect(x: 200, y: 200, width: 500, height: 500))
-        updateChartWithData()
+        barTView.lineData?.setValueTextColor(.black)
+
+        setChart(xValues: ["One","Two","Three","Four","FIve", "Six", "Seven"], yValuesLineChart: [0,2,3,4,5,6,7,8,9], yValuesBarChart: [0,1,2,3,4,5,6,7,8])
         view.addSubview(barTView)
         view.bringSubview(toFront: barTView)
 
     }
     
-    func updateChartWithData() {
-        var dataEntries: [BarChartDataEntry] = []
-        var ccDataEntries : [CombinedChartData] = []
-        for i in 0...6 {
-            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(Double(i) * 2/Double(i) * sin(Double(i))))
-//            let ccDataEntry = CombinedChartData(dataSet: IChartDataSet.addEntry(4 as! IChartDataSet))
-            dataEntries.append(dataEntry)
+    
+    
+    
+    func setChart(xValues: [String], yValuesLineChart: [Double], yValuesBarChart: [Double]) {
+        barTView.noDataText = "Please provide data for the chart."
+        
+        var yVals1 : [ChartDataEntry] = [ChartDataEntry]()
+        var yVals2 : [BarChartDataEntry] = [BarChartDataEntry]()
+        
+        for i in 0..<xValues.count {
+            
+            yVals1.append(ChartDataEntry(x: yValuesLineChart[i], y: Double(i)))
+            yVals2.append(BarChartDataEntry(x: yValuesBarChart[i] - 1, y: Double(i)))
+            
         }
-        let chartDataSet = BarChartDataSet(values: dataEntries, label: "Visitor count")
-        let chartData = BarChartData(dataSet: chartDataSet)
-        barTView.data = chartData
+        
+        let lineChartSet = LineChartDataSet(values: yVals1, label: "Line Data")
+        let barChartSet: BarChartDataSet = BarChartDataSet(values: yVals2, label: "Bar Data")
+        
+        let data : CombinedChartData = CombinedChartData(dataSets: [barChartSet, lineChartSet])
+        data.barData = BarChartData(dataSet: barChartSet)
+        data.lineData = LineChartData(dataSet: lineChartSet)
+        barTView.data = data
+        
     }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+//    func updateChartWithData() {
+//        var dataEntries: [BarChartDataEntry] = []
+//        var ccDataEntries : [CombinedChartData] = []
+//        for i in 0...6 {
+//            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(Double(i) * 2/Double(i) * sin(Double(i))))
+////            let ccDataEntry = CombinedChartData(dataSet: IChartDataSet.addEntry(4 as! IChartDataSet))
+//            dataEntries.append(dataEntry)
+//        }
+//        let chartDataSet = BarChartDataSet(values: dataEntries, label: "Visitor count")
+//        let chartData = BarChartData(dataSet: chartDataSet)
+//        barTView.data = chartData
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
