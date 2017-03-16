@@ -12,38 +12,20 @@ import FirebaseDatabase
 
 class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    func firebaseNineFUnc(path: String, thisDate : String) -> [masterNine]{
-        print("JEREMY")
-        var returnerArray : [masterNine] = []
-
+    func pullFirebase(path: String, thisDate : String) {
         if path == "Nine"{
-            print(thisDate)
-            
-            
             reference(withPath: "Nine").observe(.value, with: { (snapshot) in
                 var newItems : [masterNine] = []
-                print("whaddup")
                 for item in snapshot.children{
                     let masterItem = masterNine(snapshot: item as! FIRDataSnapshot, theDate: thisDate)
-                    
                     if masterItem == nil{
-                        
                     }else{
-                        
                         newItems.append((masterItem)!)
                     }
-                    
                 }
-                
-                returnerArray = newItems
-                
-                let filter = returnerArray.filter {$0.name == self.name && $0.date == self.date}
-                
-                //run through all the tags
+                let filter = newItems.filter {$0.name == self.name && $0.date == self.date}
                 
                 if filter.count != 0{
-                    print(String(describing: filter[0]))
-                    
                     (self.textBoxContainer.subviews[0] as! UITextField).text = String(filter[0].fairways)
                     (self.textBoxContainer.subviews[1] as! UITextField).text = String(filter[0].putts)
                     (self.textBoxContainer.subviews[2] as! UITextField).text = String(filter[0].hundo)
@@ -54,9 +36,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                     (self.textBoxContainer.subviews[7] as! UITextField).text = String(filter[0].short)
                     (self.textBoxContainer.subviews[8] as! UITextField).text = String(filter[0].opponentName)
                     (self.textBoxContainer.subviews[9] as! UITextField).text = String(filter[0].opponentScore)
-                    
                 }else{
-                    
                     (self.textBoxContainer.subviews[0] as! UITextField).text = ""
                     (self.textBoxContainer.subviews[1] as! UITextField).text = ""
                     (self.textBoxContainer.subviews[2] as! UITextField).text = ""
@@ -68,16 +48,57 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                     (self.textBoxContainer.subviews[8] as! UITextField).text = ""
                     (self.textBoxContainer.subviews[9] as! UITextField).text = ""
                 }
+            })
+        }else if path == "Eight"{
+            reference(withPath: "Eighteen").observe(.value, with: { (snapshot) in
+                var newItems : [masterEighteen] = []
+                for item in snapshot.children{
+                    let masterItem = masterEighteen(snapshot: item as! FIRDataSnapshot, theDate: thisDate)
+                    if masterItem == nil{
+                    }else{
+                        newItems.append((masterItem)!)
+                    }
+                }
+                let filter = newItems.filter {$0.name == self.name && $0.date == self.date}
 
-                
+                if filter.count != 0{
+                    (self.textBoxContainer.subviews[0] as! UITextField).text = String(filter[0].fairwaysFront)
+                    (self.textBoxContainer.subviews[1] as! UITextField).text = String(filter[0].greensFront)
+                    (self.textBoxContainer.subviews[2] as! UITextField).text = String(filter[0].puttsFront)
+                    (self.textBoxContainer.subviews[3] as! UITextField).text = String(filter[0].hundoFront)
+                    (self.textBoxContainer.subviews[4] as! UITextField).text = String(filter[0].sneaksFront)
+                    (self.textBoxContainer.subviews[5] as! UITextField).text = String(filter[0].birdsFront)
+                    (self.textBoxContainer.subviews[6] as! UITextField).text = String(filter[0].shortFront)
+                    (self.textBoxContainer.subviews[7] as! UITextField).text = String(filter[0].scoreFront)
+                    (self.textBoxContainer.subviews[8] as! UITextField).text = String(filter[0].fairwaysBack)
+                    (self.textBoxContainer.subviews[9] as! UITextField).text = String(filter[0].greensBack)
+                    (self.textBoxContainer.subviews[10] as! UITextField).text = String(filter[0].puttsBack)
+                    (self.textBoxContainer.subviews[11] as! UITextField).text = String(filter[0].hundoBack)
+                    (self.textBoxContainer.subviews[12] as! UITextField).text = String(filter[0].sneaksBack)
+                    (self.textBoxContainer.subviews[13] as! UITextField).text = String(filter[0].birdsBack)
+                    (self.textBoxContainer.subviews[14] as! UITextField).text = String(filter[0].shortBack)
+                    (self.textBoxContainer.subviews[15] as! UITextField).text = String(filter[0].scoreBack)
+                }else{
+                    (self.textBoxContainer.subviews[0] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[1] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[2] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[3] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[4] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[5] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[6] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[7] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[8] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[9] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[10] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[11] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[12] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[13] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[14] as! UITextField).text = ""
+                    (self.textBoxContainer.subviews[15] as! UITextField).text = ""
+                }
             })
         }
-
-        print(returnerArray)
-        return returnerArray
-        
     }
-    
 
     let screen = UIScreen.main.bounds
     let players = ["Scott", "Jimmy"]
@@ -91,9 +112,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     var eightView = UIView()
     var mode = "nine"
     var submitButton = UIButton()
-    var isNew : Bool = true
-    var fireBaseNine : [masterNine] = []
-    var fireBaseEight : [masterEighteen] = []
     var dateLabel = UILabel()
     var name : String!
     var date : String!
@@ -107,6 +125,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         playerPicker.reloadAllComponents()
         
         
+        
     }
     
     func reference(withPath path: String) -> FIRDatabaseReference{
@@ -117,10 +136,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     
     func initRight(){
-//        chooser = UISegmentedControl(items: ["Nine", "Eighteen"])
-//        chooser.frame = CGRect(x: screen.width * 3 / 4 - (screen.width / 2 - 50) / 2, y: 15, width: screen.width / 2 - 50, height: 50)
-//        chooser.selectedSegmentIndex = 0
-//        chooser.isOpaque = false
         
         nineView.frame = CGRect(x: Int(screen.width / 2), y: 0, width: Int(screen.width / 4), height: 100)
         nineView.backgroundColor = .gray
@@ -143,7 +158,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         self.view.addSubview(nineView)
         self.view.addSubview(eightView)
         self.view.addSubview(chooser)
-        //self.view.addSubview(textBoxContainer)
     }
     
     func generateFields(){
@@ -175,7 +189,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                 
                 tag += 1
             }
-            //self.view.addSubview(textBoxContainer)
         }
         else{
             //generate eighteen hole fields
@@ -202,7 +215,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                 
                 tag += 1
             }
-            //self.view.addSubview(textBoxContainer)
         }
         submitButton.frame = CGRect(x: 0, y: textBoxContainer.frame.height - 170, width: textBoxContainer.frame.width, height: 50)
         submitButton.backgroundColor = .blue
@@ -221,35 +233,17 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     func submit(){
         print("Submit")
         print(self.mode)
-        print(isNew)
         
-        if isNew {
-            if mode == "nine"{
-                
-                let nineStat = masterNine(name: name, birdies: Int(((textBoxContainer.subviews[6] as? UITextField)?.text)!)!, putts: Int(((textBoxContainer.subviews[1] as? UITextField)?.text)!)!, short: Int(((textBoxContainer.subviews[7] as? UITextField)?.text)!)!, hundo: Int(((textBoxContainer.subviews[2] as? UITextField)?.text)!)!, greens: Int(((textBoxContainer.subviews[3] as? UITextField)?.text)!)!, score: Int(((textBoxContainer.subviews[5] as? UITextField)?.text)!)!, sneaks: Int(((textBoxContainer.subviews[4] as? UITextField)?.text)!)!, fairways: Int(((textBoxContainer.subviews[0] as? UITextField)?.text)!)!, date: date, opponentScore: Int(((textBoxContainer.subviews[9] as? UITextField)?.text)!)!, opponentName: ((textBoxContainer.subviews[8] as? UITextField)?.text)!)
-                
-                let nineStatRef = self.reference(withPath: "Nine").child(name.lowercased()).child(date)
-                
-                nineStatRef.setValue(nineStat.toAnyObject())
+        if mode == "nine"{
+            let nineStat = masterNine(name: name, birdies: Int(((textBoxContainer.subviews[6] as? UITextField)?.text)!)!, putts: Int(((textBoxContainer.subviews[1] as? UITextField)?.text)!)!, short: Int(((textBoxContainer.subviews[7] as? UITextField)?.text)!)!, hundo: Int(((textBoxContainer.subviews[2] as? UITextField)?.text)!)!, greens: Int(((textBoxContainer.subviews[3] as? UITextField)?.text)!)!, score: Int(((textBoxContainer.subviews[5] as? UITextField)?.text)!)!, sneaks: Int(((textBoxContainer.subviews[4] as? UITextField)?.text)!)!, fairways: Int(((textBoxContainer.subviews[0] as? UITextField)?.text)!)!, date: date, opponentScore: Int(((textBoxContainer.subviews[9] as? UITextField)?.text)!)!, opponentName: ((textBoxContainer.subviews[8] as? UITextField)?.text)!)
+            let nineStatRef = self.reference(withPath: "Nine").child(name.lowercased()).child(date)
+            nineStatRef.setValue(nineStat.toAnyObject())
 
-            }else{
-                
-                
-                
-                
-            }
         }else{
-            if mode == "nine"{
-                
-//                 reference(withPath: "Nine").child(nameLabel.text!.lowercased()).child(date).updateChildValues(["hundo": Int(hundredAndInTextField.text!)!, "greens" : Int(girTextField.text!)!, "score": Int(scoreTextField.text!)!,"sneaks" : Int(sneaksTextField.text!)!,"short" : Int(shortPutts.text!)!, "putts": Int(puttsTextField.text!)!, "birdies": Int(birdsTextField.text!)!, "fairways" : Int(fairwaysTextField.text!)!, "opponentName" : opponentName.text!, "opponentScore" : Int(opponentScore.text!)!])
-                
-            }else{
-                
-                
-                
-            }
+            let eighteenStat = masterEighteen(name: name, birdsFront: Int(((textBoxContainer.subviews[5] as? UITextField)?.text)!)!, puttsFront: Int(((textBoxContainer.subviews[6] as? UITextField)?.text)!)!, shortFront: Int(((textBoxContainer.subviews[2] as? UITextField)?.text)!)!, hundoFront: Int(((textBoxContainer.subviews[3] as? UITextField)?.text)!)!, greensFront: Int(((textBoxContainer.subviews[1] as? UITextField)?.text)!)!, scoreFront: Int(((textBoxContainer.subviews[7] as? UITextField)?.text)!)!, sneaksFront: Int(((textBoxContainer.subviews[4] as? UITextField)?.text)!)!, fairwaysFront: Int(((textBoxContainer.subviews[0] as? UITextField)?.text)!)!, birdsBack: Int(((textBoxContainer.subviews[13] as? UITextField)?.text)!)!, puttsBack: Int(((textBoxContainer.subviews[10] as? UITextField)?.text)!)!, shortBack: Int(((textBoxContainer.subviews[14] as? UITextField)?.text)!)!, hundoBack: Int(((textBoxContainer.subviews[11] as? UITextField)?.text)!)!, greensBack: Int(((textBoxContainer.subviews[9] as? UITextField)?.text)!)!, scoreBack: Int(((textBoxContainer.subviews[15] as? UITextField)?.text)!)!, sneaksBack: Int(((textBoxContainer.subviews[12] as? UITextField)?.text)!)!, fairwaysBack: Int(((textBoxContainer.subviews[8] as? UITextField)?.text)!)!, date: date, opponentScore: 0, opponentName: "")
+            let eighteenStatRef = self.reference(withPath: "Eighteen").child(name.lowercased()).child(date)
+            eighteenStatRef.setValue(eighteenStat.toAnyObject())
         }
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -259,14 +253,15 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             self.eightView.backgroundColor = .gray
             self.nineView.backgroundColor = .lightGray
             self.generateFields()
+            pullFirebase(path: "Eight", thisDate: date)
         }
         else if nineView.frame.contains(point!){
             self.mode = "nine"
             self.eightView.backgroundColor = .lightGray
             self.nineView.backgroundColor = .gray
             self.generateFields()
+            pullFirebase(path: "Nine", thisDate: date)
         }
-        
     }
     
     func dateDeclare(){
@@ -281,15 +276,15 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         dateLabel.text = strDate
         date = strDate
         
-        firebaseNineFUnc(path: "Nine", thisDate: date)
-
-        
+        if self.mode == "nine"{
+        pullFirebase(path: "Nine", thisDate: date)
+        }else{
+        pullFirebase(path: "Eight", thisDate: date)
+        }
     }
 
-    
     func initLeft(){
-        
-        // need to declare this at top somehow so can access it at bottom to reference date after initial load
+
         datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screen.width / 2, height: screen.height / 3))
         datePicker.datePickerMode = .date
         datePicker.backgroundColor = UIColor(colorLiteralRed: 101 / 255, green: 244 / 255, blue: 66 / 255, alpha: 1)
@@ -299,7 +294,6 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         
         dateLabel = UILabel(frame: CGRect(x: 0, y: 50, width: screen.width / 2, height: screen.width / 3))
         dateLabel.textColor = .black
-        dateLabel.text = "Hello"
         
         playerPicker = UIPickerView(frame: CGRect(x: 0, y: datePicker.frame.height, width: screen.width / 2, height: screen.height / 3))
         playerPicker.delegate = self
@@ -339,15 +333,19 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         dateLabel.text = strDate
         date = strDate
         
-        fireBaseNine = firebaseNineFUnc(path: "Nine", thisDate: date)
+        if self.mode == "nine"{
+        
+        pullFirebase(path: "Nine", thisDate: date)
 
-       
-        // Do any additional setup after loading the view.
+        }else{
+            
+        pullFirebase(path: "Eight", thisDate: date)
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -368,7 +366,12 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             
             name = players[row]
 
-            firebaseNineFUnc(path: "Nine", thisDate: date)
+            if self.mode == "nine"{
+            pullFirebase(path: "Nine", thisDate: date)
+            }else{
+            pullFirebase(path: "Eight", thisDate: date)
+            }
+            
 
             return players[row]
         }
@@ -378,10 +381,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             
         }
     }
-    
-    
 
-    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == self.playerPicker{
             name = players[row]
@@ -389,15 +389,4 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             course = courses[row]
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
