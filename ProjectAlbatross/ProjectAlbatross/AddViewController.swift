@@ -36,6 +36,11 @@ class statField : UITextField, UITextFieldDelegate{
         print("Begin")
         self.text = ""
     }
+    
+    func getRaw(){
+        self.rawValue = self.text
+        self.text = "\(self.placeholder!): \(self.rawValue!)"
+    }
 }
 
 class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -64,6 +69,11 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                     (self.textBoxContainer.subviews[7] as! UITextField).text = String(filter[0].short)
                     (self.textBoxContainer.subviews[8] as! UITextField).text = String(filter[0].opponentName)
                     (self.textBoxContainer.subviews[9] as! UITextField).text = String(filter[0].opponentScore)
+                    for i in self.textBoxContainer.subviews{
+                        if let field = i as? statField{
+                            field.getRaw()
+                        }
+                    }
                 }else{
                     (self.textBoxContainer.subviews[0] as! UITextField).text = ""
                     (self.textBoxContainer.subviews[1] as! UITextField).text = ""
