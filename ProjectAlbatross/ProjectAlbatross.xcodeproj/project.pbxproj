@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		102A3D401E7717F000B13E88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 102A3D3F1E7717F000B13E88 /* GoogleService-Info.plist */; };
 		10845FD91E7C61CC001A7614 /* FoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10845FD81E7C61CC001A7614 /* FoldingCell.swift */; };
+		10845FE11E7C624E001A7614 /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10845FDF1E7C624E001A7614 /* PlayerTableViewCell.swift */; };
+		10845FE21E7C624E001A7614 /* PlayerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10845FE01E7C624E001A7614 /* PlayerTableViewCell.xib */; };
 		10C0B05D1E73331F002E99A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B05C1E73331F002E99A0 /* AppDelegate.swift */; };
 		10C0B05F1E73331F002E99A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B05E1E73331F002E99A0 /* ViewController.swift */; };
 		10C0B0651E73331F002E99A0 /* ProjectAlbatross.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B0631E73331F002E99A0 /* ProjectAlbatross.xcdatamodeld */; };
@@ -49,6 +51,8 @@
 /* Begin PBXFileReference section */
 		102A3D3F1E7717F000B13E88 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		10845FD81E7C61CC001A7614 /* FoldingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldingCell.swift; sourceTree = "<group>"; };
+		10845FDF1E7C624E001A7614 /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
+		10845FE01E7C624E001A7614 /* PlayerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerTableViewCell.xib; sourceTree = "<group>"; };
 		10C0B0591E73331F002E99A0 /* ProjectAlbatross.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectAlbatross.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10C0B05C1E73331F002E99A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10C0B05E1E73331F002E99A0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +113,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10845FDA1E7C6209001A7614 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				10845FDF1E7C624E001A7614 /* PlayerTableViewCell.swift */,
+				10845FE01E7C624E001A7614 /* PlayerTableViewCell.xib */,
+			);
+			name = TableViewCells;
+			sourceTree = "<group>";
+		};
 		10C0B0501E73331F002E99A0 = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +153,7 @@
 				D24F773B1E73792B00A48A90 /* AddViewController.swift */,
 				10C0B0971E733B39002E99A0 /* TableViewControllers */,
 				10C0B05C1E73331F002E99A0 /* AppDelegate.swift */,
+				10845FDA1E7C6209001A7614 /* TableViewCells */,
 				10C0B05E1E73331F002E99A0 /* ViewController.swift */,
 				10C0B0661E73331F002E99A0 /* Assets.xcassets */,
 				10C0B0681E73331F002E99A0 /* LaunchScreen.storyboard */,
@@ -328,6 +342,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10845FE21E7C624E001A7614 /* PlayerTableViewCell.xib in Resources */,
 				10C0B06A1E73331F002E99A0 /* LaunchScreen.storyboard in Resources */,
 				102A3D401E7717F000B13E88 /* GoogleService-Info.plist in Resources */,
 				10C0B0671E73331F002E99A0 /* Assets.xcassets in Resources */,
@@ -499,6 +514,7 @@
 				D24F773C1E73792B00A48A90 /* AddViewController.swift in Sources */,
 				10C0B05F1E73331F002E99A0 /* ViewController.swift in Sources */,
 				10C0B0901E73355B002E99A0 /* TabController.swift in Sources */,
+				10845FE11E7C624E001A7614 /* PlayerTableViewCell.swift in Sources */,
 				5F077CEF1E75DA2D00E425E8 /* masterEighteen.swift in Sources */,
 				D2FB4D381E736748000C7BB4 /* NineStatsTableViewController.swift in Sources */,
 				10C0B0651E73331F002E99A0 /* ProjectAlbatross.xcdatamodeld in Sources */,
