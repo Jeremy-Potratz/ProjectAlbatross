@@ -8,25 +8,74 @@
 
 import UIKit
 import Charts
+import Firebase
+import FirebaseDatabase
 
 class NineStatsTableViewController: UITableViewController {
+    var theXVal : [String] = []
+    var theYVal : [Double] = []
+    var yAvgVal : [Double] = []
+    
+    func pullFirebase(path: String) {
+        if path == "Nine"{
+            reference(withPath: "Nine").observe(.value, with: { (snapshot) in
+                var newItems : [masterNine] = []
+                for item in snapshot.children{
+//                    let masterItem = masterNine(snapshot: item as! FIRDataSnapshot, theDate: "Mar 6, 2017")
+                    let masterItem = masterNine.fetchAVG(snapshot: item as! FIRDataSnapshot, AVG: "AVG")
+                    
+                    print(masterItem)
+                    
+                    if masterItem == nil{
+                    }else{
+//                        newItems.append((masterItem[""]["name"]))
+                    }
+                }
+                let filter = newItems.filter {$0.name == "scott"}
+                
+                if filter.count != 0{
+                    
+                    for i in filter{
+                        
+                        print(i.date)
+                        
+                        self.theXVal.append(String(i.date!))
+                        self.theYVal.append(Double(i.fairways!))
+                        self.yAvgVal.append(Double(i.birdies!))
+                        
+                    }
+                    
+                }else{
+
+                }
+            })
+        }
+    }
+    
+    func reference(withPath path: String) -> FIRDatabaseReference{
+        
+        let ref = FIRDatabase.database().reference(withPath: path)
+        return ref
+        
+    }
 
     var barTView : CombinedChartView!
-//    var combinedChartView :
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        pullFirebase(path: "Nine")
+        
+        print(theXVal)
+        
         barTView = CombinedChartView(frame: CGRect(x: 200, y: 200, width: 500, height: 500))
         barTView.lineData?.setValueTextColor(.black)
 
-        setChart(xValues: ["One","Two","Three","Four","FIve", "Six", "Seven"], yValuesLineChart: [0,2,3,4,5,6,7,8,9], yValuesBarChart: [0,1,2,3,4,5,6,7,8])
+        setChart(xValues: theXVal, yValuesLineChart: theYVal, yValuesBarChart: yAvgVal)
         view.addSubview(barTView)
         view.bringSubview(toFront: barTView)
 
     }
-    
-    
-    
     
     func setChart(xValues: [String], yValuesLineChart: [Double], yValuesBarChart: [Double]) {
         barTView.noDataText = "Please provide data for the chart."
@@ -51,14 +100,6 @@ class NineStatsTableViewController: UITableViewController {
         
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     

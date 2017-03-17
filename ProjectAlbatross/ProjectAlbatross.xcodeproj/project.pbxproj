@@ -24,7 +24,7 @@
 		A9C33EE5CFCF29967192DE29 /* Pods_ProjectAlbatross.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2E763353EFEAE8799580928 /* Pods_ProjectAlbatross.framework */; };
 		B44CCC1CC8E7B4E34AD16944 /* Pods_ProjectAlbatrossTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB976BE0A8D470EBE79CA49 /* Pods_ProjectAlbatrossTests.framework */; };
 		D24F773C1E73792B00A48A90 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24F773B1E73792B00A48A90 /* AddViewController.swift */; };
-		D2FB4D381E736748000C7BB4 /* NineStatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FB4D371E736748000C7BB4 /* NineStatsTableViewController.swift */; };
+		D2FB4D381E736748000C7BB4 /* po.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FB4D371E736748000C7BB4 /* po.swift */; };
 		D2FB4D3A1E736758000C7BB4 /* EighteenStatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FB4D391E736758000C7BB4 /* EighteenStatsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -72,7 +72,7 @@
 		71E153D8D3E5EF37ECB8B703 /* Pods-ProjectAlbatrossTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectAlbatrossTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ProjectAlbatrossTests/Pods-ProjectAlbatrossTests.release.xcconfig"; sourceTree = "<group>"; };
 		A2E763353EFEAE8799580928 /* Pods_ProjectAlbatross.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectAlbatross.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D24F773B1E73792B00A48A90 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
-		D2FB4D371E736748000C7BB4 /* NineStatsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NineStatsTableViewController.swift; sourceTree = "<group>"; };
+		D2FB4D371E736748000C7BB4 /* po.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = po.swift; sourceTree = "<group>"; };
 		D2FB4D391E736758000C7BB4 /* EighteenStatsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EighteenStatsTableViewController.swift; sourceTree = "<group>"; };
 		E1E4314DB98B22DFD6EA71DB /* Pods-ProjectAlbatross.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectAlbatross.release.xcconfig"; path = "Pods/Target Support Files/Pods-ProjectAlbatross/Pods-ProjectAlbatross.release.xcconfig"; sourceTree = "<group>"; };
 		F5E98BFA6ED1D51ADF075305 /* Pods-ProjectAlbatross.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectAlbatross.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ProjectAlbatross/Pods-ProjectAlbatross.debug.xcconfig"; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 			children = (
 				10C0B0911E7339A7002E99A0 /* PlayerTableViewController.swift */,
 				10C0B0951E733ACB002E99A0 /* CourseTableViewController.swift */,
-				D2FB4D371E736748000C7BB4 /* NineStatsTableViewController.swift */,
+				D2FB4D371E736748000C7BB4 /* po.swift */,
 				D2FB4D391E736758000C7BB4 /* EighteenStatsTableViewController.swift */,
 			);
 			name = TableViewControllers;
@@ -497,7 +497,7 @@
 				10C0B05F1E73331F002E99A0 /* ViewController.swift in Sources */,
 				10C0B0901E73355B002E99A0 /* TabController.swift in Sources */,
 				5F077CEF1E75DA2D00E425E8 /* masterEighteen.swift in Sources */,
-				D2FB4D381E736748000C7BB4 /* NineStatsTableViewController.swift in Sources */,
+				D2FB4D381E736748000C7BB4 /* po.swift in Sources */,
 				10C0B0651E73331F002E99A0 /* ProjectAlbatross.xcdatamodeld in Sources */,
 				10C0B0961E733ACB002E99A0 /* CourseTableViewController.swift in Sources */,
 				10C0B05D1E73331F002E99A0 /* AppDelegate.swift in Sources */,

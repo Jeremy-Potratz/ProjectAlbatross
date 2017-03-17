@@ -57,6 +57,7 @@ struct masterNine{
             
         }else{
             
+            
             name = (snapshotValue[theDate]!["name"] as! String)
             date = (snapshotValue[theDate]!["date"] as! String)
             birdies = (snapshotValue[theDate]!["birdies"] as! Int)
@@ -72,6 +73,15 @@ struct masterNine{
             
         }
         ref = snapshot.ref
+    }
+    
+    public static func fetchAVG(snapshot: FIRDataSnapshot, AVG: String) -> [String : AnyObject]{
+        
+        let snapshotValue = snapshot.value as! [String : AnyObject]
+        
+        return snapshotValue
+        
+        
     }
     
     func toAnyObject() -> Any {
