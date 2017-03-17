@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		102A3D401E7717F000B13E88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 102A3D3F1E7717F000B13E88 /* GoogleService-Info.plist */; };
+		10845FD91E7C61CC001A7614 /* FoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10845FD81E7C61CC001A7614 /* FoldingCell.swift */; };
 		10C0B05D1E73331F002E99A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B05C1E73331F002E99A0 /* AppDelegate.swift */; };
 		10C0B05F1E73331F002E99A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B05E1E73331F002E99A0 /* ViewController.swift */; };
 		10C0B0651E73331F002E99A0 /* ProjectAlbatross.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 10C0B0631E73331F002E99A0 /* ProjectAlbatross.xcdatamodeld */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		102A3D3F1E7717F000B13E88 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		10845FD81E7C61CC001A7614 /* FoldingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldingCell.swift; sourceTree = "<group>"; };
 		10C0B0591E73331F002E99A0 /* ProjectAlbatross.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectAlbatross.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10C0B05C1E73331F002E99A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10C0B05E1E73331F002E99A0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 		10C0B05B1E73331F002E99A0 /* ProjectAlbatross */ = {
 			isa = PBXGroup;
 			children = (
+				10845FD81E7C61CC001A7614 /* FoldingCell.swift */,
 				5F077CF01E75DA3300E425E8 /* Firebase */,
 				10C0B08F1E73355B002E99A0 /* TabController.swift */,
 				D24F773B1E73792B00A48A90 /* AddViewController.swift */,
@@ -501,6 +504,7 @@
 				10C0B0651E73331F002E99A0 /* ProjectAlbatross.xcdatamodeld in Sources */,
 				10C0B0961E733ACB002E99A0 /* CourseTableViewController.swift in Sources */,
 				10C0B05D1E73331F002E99A0 /* AppDelegate.swift in Sources */,
+				10845FD91E7C61CC001A7614 /* FoldingCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
