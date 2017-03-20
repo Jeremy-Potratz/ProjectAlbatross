@@ -18,20 +18,38 @@ class NineStatsTableViewController: UITableViewController {
     
     func pullFirebase(path: String) {
         if path == "Nine"{
+            
+            print(path)
+            
             reference(withPath: "Nine").observe(.value, with: { (snapshot) in
                 var newItems : [masterNine] = []
+                print(snapshot.children)
+            })
+            
+            reference(withPath: "Nine").observe(.value, with: { (snapshot) in
+                var newItems : [masterNine] = []
+                
+                print(snapshot)
+                print(snapshot.children)
+                print("Jeremy")
+                print(snapshot.childSnapshot(forPath: "Mar 6, 2017"))
+                
                 for item in snapshot.children{
-//                    let masterItem = masterNine(snapshot: item as! FIRDataSnapshot, theDate: "Mar 6, 2017")
+
+                    print(item)
+                    
                     let masterItem = masterNine.fetchAVG(snapshot: item as! FIRDataSnapshot, AVG: "AVG")
                     
-                    print(masterItem)
                     
-                    if masterItem == nil{
-                    }else{
-//                        newItems.append((masterItem[""]["name"]))
-                    }
+                        newItems.append((masterItem["Mar 6, 2017"] as! masterNine))
+                    
+                    print(newItems)
+                    print("HELLO")
+                    print(masterNine.fetchAVG(snapshot: item as! FIRDataSnapshot, AVG: "AVG"))
+                    
                 }
-                let filter = newItems.filter {$0.name == "scott"}
+                print("These are the \(newItems)")
+                let filter = newItems.filter {$0.name as String == "scott"}
                 
                 if filter.count != 0{
                     
