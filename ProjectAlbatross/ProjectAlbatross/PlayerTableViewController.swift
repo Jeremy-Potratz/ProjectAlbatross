@@ -21,7 +21,8 @@ class PlayerTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(PlayerTableViewCell.self, forCellReuseIdentifier: "playerCell")
+        let nib = UINib(nibName: "PlayerTableViewCell", bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: "playerCell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,16 +80,16 @@ class PlayerTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "playerCell", for: indexPath) as! PlayerTableViewCell
-//        cell.foregroundNameLabel.text = "Scott"
-//        cell.containerNameLabel.text = "Scott"
-//        cell.fairwaysLabel.text = "Fair"
-//        cell.puttsLabel.text = "Putts"
-//        cell.scoreLabel.text = "Score"
-//        cell.shortsLabel.text = "Shorts"
-//        cell.greensLabel.text = "Gir"
-//        cell.hundredsLabel.text = "Hundo"
-//        cell.birdsLabel.text = "Bird"
-//        cell.sneaksLabel.text = "Sneak"
+        cell.foregroundNameLabel.text = "Scott"
+        cell.containerNameLabel.text = "Scott"
+        cell.fairwaysLabel.text = "Fair"
+        cell.puttsLabel.text = "Putts"
+        cell.scoreLabel.text = "Score"
+        cell.shortsLabel.text = "Shorts"
+        cell.greensLabel.text = "Gir"
+        cell.hundredsLabel.text = "Hundo"
+        cell.birdsLabel.text = "Bird"
+        cell.sneaksLabel.text = "Sneak"
         return cell
     }
 
