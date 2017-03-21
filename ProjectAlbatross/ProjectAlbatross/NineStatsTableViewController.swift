@@ -17,13 +17,14 @@ class NineStatsTableViewController: UITableViewController {
     var yAvgVal : [Double] = []
     
     func pullFirebase(path: String) {
+        var newItems : [[String:AnyObject]] = [[:]]
+
         if path == "Nine"{
             
             print(path)
-            
+
             reference(withPath: "Nine").observe(.value, with: { (snapshot) in
 
-                var newItems : [[String:AnyObject]] = [[:]]
                 
                 for item in snapshot.childSnapshot(forPath: "scott").children{
                     //input name as function parameter for generalization
@@ -33,28 +34,37 @@ class NineStatsTableViewController: UITableViewController {
                     
                 }
                 
-                let filter = newItems.filter {$0["name"] != nil }
-                
-                if filter.count != 0{
-                    for i in filter{
-
-                        self.theXVal.append(String(describing: i["date"]!))
-                        self.theYVal.append(i["fairways"] as! Double)
-                        self.yAvgVal.append(i["putts"] as! Double)
-                    }
-                    
-                }
-                
-                print(self.theXVal)
             })
 
         }
+        
+        
+        let filter = newItems.filter {$0["name"] != nil }
+        print(filter)
+        if filter.count != 0{
+            for i in filter{
+                print(i)
+                self.theXVal.append(String(describing: i["date"]!))
+                self.theYVal.append(i["fairways"] as! Double)
+                self.yAvgVal.append(i["putts"] as! Double)
+            }
+            
+        }
+        
+        print(self.theXVal)
+        print(self.theYVal)
+        print(self.yAvgVal)
+        
+ 
+        if self.theXVal.count != 0{
+        
         barTView = CombinedChartView(frame: CGRect(x: 200, y: 200, width: 500, height: 500))
         barTView.lineData?.setValueTextColor(.black)
         
         setChart(xValues: theXVal, yValuesLineChart: theYVal, yValuesBarChart: yAvgVal)
         view.addSubview(barTView)
         view.bringSubview(toFront: barTView)
+        }
     }
     
     func reference(withPath path: String) -> FIRDatabaseReference{
@@ -76,7 +86,7 @@ class NineStatsTableViewController: UITableViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
+
     }
     
     func setChart(xValues: [String], yValuesLineChart: [Double], yValuesBarChart: [Double]) {
