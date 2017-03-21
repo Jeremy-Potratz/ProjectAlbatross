@@ -22,57 +22,45 @@ class NineStatsTableViewController: UITableViewController {
             print(path)
             
             reference(withPath: "Nine").observe(.value, with: { (snapshot) in
-                var newItems : [masterNine] = []
-                print(snapshot.children)
-            })
-            
-            reference(withPath: "Nine").observe(.value, with: { (snapshot) in
-                var newItems : [masterNine] = []
-                
-                print(snapshot)
-                print(snapshot.children)
-                print("Jeremy")
-                print(snapshot.childSnapshot(forPath: "Mar 6, 2017"))
-                
-                for item in snapshot.children{
 
-                    print(item)
-                    
-                    let masterItem = masterNine.fetchAVG(snapshot: item as! FIRDataSnapshot, AVG: "AVG")
-                    
-                    
-                        newItems.append((masterItem["Mar 6, 2017"] as! masterNine))
-                    
-                    print(newItems)
-                    print("HELLO")
-                    print(masterNine.fetchAVG(snapshot: item as! FIRDataSnapshot, AVG: "AVG"))
+                var newItems : [[String:AnyObject]] = [[:]]
+                
+                for item in snapshot.childSnapshot(forPath: "scott").children{
+                    //input name as function parameter for generalization
+                    let masterItem = ((item as! FIRDataSnapshot).value as! [String : AnyObject])
+                    print(masterItem)
+                    newItems.append(masterItem)
                     
                 }
-                print("These are the \(newItems)")
-                let filter = newItems.filter {$0.name as String == "scott"}
+                
+                let filter = newItems.filter {$0["name"] != nil }
                 
                 if filter.count != 0{
-                    
                     for i in filter{
-                        
-                        print(i.date)
-                        
-                        self.theXVal.append(String(i.date!))
-                        self.theYVal.append(Double(i.fairways!))
-                        self.yAvgVal.append(Double(i.birdies!))
-                        
+
+                        self.theXVal.append(String(describing: i["date"]!))
+                        self.theYVal.append(i["fairways"] as! Double)
+                        self.yAvgVal.append(i["putts"] as! Double)
                     }
                     
-                }else{
-
                 }
+                
+                print(self.theXVal)
             })
+
         }
+        barTView = CombinedChartView(frame: CGRect(x: 200, y: 200, width: 500, height: 500))
+        barTView.lineData?.setValueTextColor(.black)
+        
+        setChart(xValues: theXVal, yValuesLineChart: theYVal, yValuesBarChart: yAvgVal)
+        view.addSubview(barTView)
+        view.bringSubview(toFront: barTView)
     }
     
     func reference(withPath path: String) -> FIRDatabaseReference{
         
         let ref = FIRDatabase.database().reference(withPath: path)
+        print("HELLO")
         return ref
         
     }
@@ -83,16 +71,12 @@ class NineStatsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         pullFirebase(path: "Nine")
-        
-        print(theXVal)
-        
-        barTView = CombinedChartView(frame: CGRect(x: 200, y: 200, width: 500, height: 500))
-        barTView.lineData?.setValueTextColor(.black)
 
-        setChart(xValues: theXVal, yValuesLineChart: theYVal, yValuesBarChart: yAvgVal)
-        view.addSubview(barTView)
-        view.bringSubview(toFront: barTView)
 
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
     }
     
     func setChart(xValues: [String], yValuesLineChart: [Double], yValuesBarChart: [Double]) {
