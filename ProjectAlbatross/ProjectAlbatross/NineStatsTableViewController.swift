@@ -15,6 +15,26 @@ class NineStatsTableViewController: UITableViewController {
     var theXVal : [String] = []
     var theYVal : [Double] = []
     var yAvgVal : [Double] = []
+
+    
+   /* http://nshipster.com/nsoperation/
+    
+    let operation = Operation()
+    self.operation.completionBlock = {
+    print("Completed")
+    }
+    
+    let networkingOperation: Operation = ...
+    let resizingOperation: Operation = ...
+        resizingOperation.addDependency(networkingOperation)
+    
+    let operationQueue = OperationQueue.main
+    operationQueue.addOperations([networkingOperation, resizingOperation], waitUntilFinished: false)
+    
+    OperationQueue.main.addOperation(operation)
+    
+ 
+ */
     
     func pullFirebase(path: String) {
         var newItems : [[String:AnyObject]] = [[:]]
@@ -38,7 +58,6 @@ class NineStatsTableViewController: UITableViewController {
 
         }
         
-        
         let filter = newItems.filter {$0["name"] != nil }
         print(filter)
         if filter.count != 0{
@@ -48,23 +67,26 @@ class NineStatsTableViewController: UITableViewController {
                 self.theYVal.append(i["fairways"] as! Double)
                 self.yAvgVal.append(i["putts"] as! Double)
             }
-            
         }
-        
         print(self.theXVal)
         print(self.theYVal)
         print(self.yAvgVal)
         
- 
         if self.theXVal.count != 0{
         
+            print("Make bar")
+            
         barTView = CombinedChartView(frame: CGRect(x: 200, y: 200, width: 500, height: 500))
         barTView.lineData?.setValueTextColor(.black)
         
         setChart(xValues: theXVal, yValuesLineChart: theYVal, yValuesBarChart: yAvgVal)
         view.addSubview(barTView)
         view.bringSubview(toFront: barTView)
+            
+            
         }
+        
+
     }
     
     func reference(withPath path: String) -> FIRDatabaseReference{
