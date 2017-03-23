@@ -10,7 +10,7 @@ import UIKit
 
 fileprivate struct C {
     struct CellHeight {
-        static let close: CGFloat = 61 // equal or greater foregroundView height
+        static let close: CGFloat = 80 // equal or greater foregroundView height
         static let open: CGFloat = 315 // equal or greater containerView height
     }
 }
@@ -23,11 +23,17 @@ class PlayerTableViewController: UITableViewController {
         super.viewDidLoad()
         let nib = UINib(nibName: "PlayerTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "playerCell")
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(PlayerTableViewController.onSwipe))
+        self.tableView.addGestureRecognizer(swipe)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func onSwipe(){
+        print("Swiping")
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
