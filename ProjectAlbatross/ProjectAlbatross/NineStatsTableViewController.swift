@@ -33,11 +33,81 @@ class NineStatsTableViewController: UITableViewController {
     
     OperationQueue.main.addOperation(operation)
     
+     
+     http://www.knowstack.com/swift-concurrency-nsoperation-nsoperationqueue/
+     
+     func blockOperationsTest1(){
+     
+     var operationQueue = NSOperationQueue()
+     
+     let operation1 : NSBlockOperation = NSBlockOperation ({
+     self.doCalculations()
+     
+     let operation2 : NSBlockOperation = NSBlockOperation ({
+     
+     self.doSomeMoreCalculations()
+     
+     })
+     operationQueue.addOperation(operation2)
+     })
+     operationQueue.addOperation(operation1)
+     }
+     
+     func doCalculations(){
+     NSLog("do Calculations")
+     for i in 100...105{
+     println("i in do calculations is \(i)")
+     sleep(1)
+     }
+     }
+     
+     func doSomeMoreCalculations(){
+     NSLog("do Some More Calculations")
+     for j in 1...5{
+     println("j in do some more calculations is \(j)")
+     sleep(1)
+     }
+     
+     }
  
  */
     
+    
+    
+    func PullandFilter(){
+
+    var operationQueue = OperationQueue.main
+    
+    let operationOne : BlockOperation = BlockOperation (block: {
+        
+        self.pullFirebase(path: "Nine")
+        
+        print("FInished Pulling")
+        
+      
+
+    })
+        operationOne.addExecutionBlock {
+            self.filterNine()
+        }
+        
+//    let operationTwo : BlockOperation = BlockOperation (block: {
+//            print("Begin filtering")
+//            self.filterNine()
+//            
+//    })
+//    
+//    operationTwo.addDependency(operationOne)
+    operationQueue.addOperation(operationOne)
+//    operationQueue.addOperations([operationOne,operationTwo], waitUntilFinished: false)
+        
+    }
+    
+    var newItems : [[String:AnyObject]] = [[:]]
+
+    
     func pullFirebase(path: String) {
-        var newItems : [[String:AnyObject]] = [[:]]
+        
 
         if path == "Nine"{
             
@@ -50,44 +120,61 @@ class NineStatsTableViewController: UITableViewController {
                     //input name as function parameter for generalization
                     let masterItem = ((item as! FIRDataSnapshot).value as! [String : AnyObject])
                     print(masterItem)
-                    newItems.append(masterItem)
+                    self.newItems.append(masterItem)
+                    
+                }
+                let filter = self.newItems.filter {$0["name"] != nil }
+                print(filter)
+                if filter.count != 0{
+                    for i in filter{
+                        print(i)
+                        self.theXVal.append(String(describing: i["date"]!))
+                        self.theYVal.append(i["fairways"] as! Double)
+                        self.yAvgVal.append(i["putts"] as! Double)
+                    }
+                }
+                print(self.theXVal)
+                print(self.theYVal)
+                print(self.yAvgVal)
+                
+                if self.theXVal.count != 0{
+                    
+                    print("Make bar")
+                    
+                    self.barTView = CombinedChartView(frame: CGRect(x: 200, y: 200, width: 500, height: 500))
+                    self.barTView.lineData?.setValueTextColor(.black)
+                    
+                    self.setChart(xValues: self.theXVal, yValuesLineChart: self.theYVal, yValuesBarChart: self.yAvgVal)
+                    
+                    var badView = {
+                        var view = UIView()
+                        view.backgroundColor = .red
+                        view.frame = CGRect(x: 200, y: 200, width: 200, height: 200)
+                        view.addSubview(view)
+                    }
+                    
                     
                 }
                 
+                var goodView = {
+                    var view = UIView()
+                    view.backgroundColor = .green
+                    view.frame = CGRect(x: 200, y: 200, width: 200, height: 200)
+                    view.addSubview(view)
+                }
+                
+
+                
             })
-
         }
-        
-        let filter = newItems.filter {$0["name"] != nil }
-        print(filter)
-        if filter.count != 0{
-            for i in filter{
-                print(i)
-                self.theXVal.append(String(describing: i["date"]!))
-                self.theYVal.append(i["fairways"] as! Double)
-                self.yAvgVal.append(i["putts"] as! Double)
-            }
-        }
-        print(self.theXVal)
-        print(self.theYVal)
-        print(self.yAvgVal)
-        
-        if self.theXVal.count != 0{
-        
-            print("Make bar")
-            
-        barTView = CombinedChartView(frame: CGRect(x: 200, y: 200, width: 500, height: 500))
-        barTView.lineData?.setValueTextColor(.black)
-        
-        setChart(xValues: theXVal, yValuesLineChart: theYVal, yValuesBarChart: yAvgVal)
-        view.addSubview(barTView)
-        view.bringSubview(toFront: barTView)
-            
-            
-        }
-        
-
     }
+    
+    func filterNine(){
+        
+        
+        
+    }
+    
     
     func reference(withPath path: String) -> FIRDatabaseReference{
         
@@ -102,13 +189,15 @@ class NineStatsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pullFirebase(path: "Nine")
+//        pullFirebase(path: "Nine")
+        
 
 
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
+        PullandFilter()
     }
     
     func setChart(xValues: [String], yValuesLineChart: [Double], yValuesBarChart: [Double]) {
@@ -131,6 +220,10 @@ class NineStatsTableViewController: UITableViewController {
         data.barData = BarChartData(dataSet: barChartSet)
         data.lineData = LineChartData(dataSet: lineChartSet)
         barTView.data = data
+        
+        view.addSubview(self.barTView)
+
+        view.bringSubview(toFront: self.barTView)
         
     }
 
