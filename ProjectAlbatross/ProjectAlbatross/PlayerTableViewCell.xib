@@ -15,11 +15,11 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="playerCell" rowHeight="404" id="KGk-i7-Jjw" customClass="PlayerTableViewCell" customModule="ProjectAlbatross" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="999" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQL-FC-lcG" customClass="RotatedView" customModule="ProjectAlbatross" customModuleProvider="target">
+                    <view tag="999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQL-FC-lcG" customClass="RotatedView" customModule="ProjectAlbatross" customModuleProvider="target">
                         <rect key="frame" x="8" y="8" width="384" height="61"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7I-Zp-d6F">
@@ -41,7 +41,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7wN-3H-sQK">
+                    <view tag="999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7wN-3H-sQK">
                         <rect key="frame" x="8" y="77" width="384" height="315"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xyK-Q3-zVA">

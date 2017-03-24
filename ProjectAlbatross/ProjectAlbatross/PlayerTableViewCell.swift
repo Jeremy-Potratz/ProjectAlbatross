@@ -22,10 +22,28 @@ class PlayerTableViewCell: FoldingCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
+        let gesture = UISwipeGestureRecognizer(target: self, action: #selector(PlayerTableViewCell.onSwipe))
+        self.contentView.addGestureRecognizer(gesture)
     }
 
+    func onSwipe(){
+        print("swiping...")
+        if self.bounds.height == C.CellHeight.open{
+            if self.containerView.subviews[0].alpha == 1{
+                print("hiding...")
+                for i in self.containerView.subviews{
+                    i.alpha = 0
+                }
+            }
+            else{
+                print("coming back...")
+                for i in self.containerView.subviews{
+                    i.alpha = 1
+                }
+            }
+        }
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

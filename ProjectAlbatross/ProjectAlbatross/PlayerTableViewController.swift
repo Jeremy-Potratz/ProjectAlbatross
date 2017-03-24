@@ -8,7 +8,7 @@
 
 import UIKit
 
-fileprivate struct C {
+public struct C {
     struct CellHeight {
         static let close: CGFloat = 80 // equal or greater foregroundView height
         static let open: CGFloat = 315 // equal or greater containerView height
@@ -23,8 +23,7 @@ class PlayerTableViewController: UITableViewController {
         super.viewDidLoad()
         let nib = UINib(nibName: "PlayerTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "playerCell")
-        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(PlayerTableViewController.onSwipe))
-        self.tableView.addGestureRecognizer(swipe)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,6 +60,8 @@ class PlayerTableViewController: UITableViewController {
             tableView.endUpdates()
         }, completion: nil)
     }
+    
+    
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if case let cell as FoldingCell = cell {
