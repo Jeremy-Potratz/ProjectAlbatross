@@ -15,29 +15,16 @@ class NineStatsTableViewController: UITableViewController {
     var theXVal : [String] = []
     var theYVal : [Double] = []
     var yAvgVal : [Double] = []
-
-    
-   /* http://nshipster.com/nsoperation/
-     
-     http://www.knowstack.com/swift-concurrency-nsoperation-nsoperationqueue/
-     
-*/
-    
+    var barTView : CombinedChartView!
     var newItems : [[String:AnyObject]] = [[:]]
 
     
     func pullFirebase(path: String) {
-        
-
         if path == "Nine"{
-            
-            print(path)
-
             reference(withPath: "Nine").observe(.value, with: { (snapshot) in
 
-                
+                //need to generalize name as function parameter
                 for item in snapshot.childSnapshot(forPath: "scott").children{
-                    //input name as function parameter for generalization
                     let masterItem = ((item as! FIRDataSnapshot).value as! [String : AnyObject])
                     print(masterItem)
                     self.newItems.append(masterItem)
@@ -47,13 +34,13 @@ class NineStatsTableViewController: UITableViewController {
                 print(filter)
                 if filter.count != 0{
                     for i in filter{
-         
+         // does not work if you try and save before or after opening
+                        
                         self.theXVal.append(String(describing: i["date"]!))
                         self.theYVal.append(i["greens"] as! Double)
                         self.yAvgVal.append(i["sneaks"] as! Double)
                     }
                 }
-                print(self.theXVal,self.theYVal,self.yAvgVal)
                 
                 if self.theXVal.count != 0{
                     
@@ -69,12 +56,9 @@ class NineStatsTableViewController: UITableViewController {
     func reference(withPath path: String) -> FIRDatabaseReference{
         
         let ref = FIRDatabase.database().reference(withPath: path)
-        print("HELLO")
         return ref
         
     }
-
-    var barTView : CombinedChartView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,8 +70,6 @@ class NineStatsTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
-        
-        
     }
     
     func setChart(xValues: [String], yValuesLineChart: [Double], yValuesBarChart: [Double]) {
@@ -98,18 +80,15 @@ class NineStatsTableViewController: UITableViewController {
         
         for i in 0..<xValues.count {
             
-            yVals1.append(ChartDataEntry(x: yValuesLineChart[i], y: Double(i)))
-            yVals2.append(BarChartDataEntry(x: yValuesBarChart[i] - 1, y: Double(i)))
-            // -1
+            yVals1.append(ChartDataEntry(x: Double(i), y: yValuesLineChart[i]))
+            yVals2.append(BarChartDataEntry(x: Double(i), y: yValuesBarChart[i]))
+            // -1 ???
         }
         
         let lineChartSet = LineChartDataSet(values: yVals1, label: "Line Data")
         let barChartSet: BarChartDataSet = BarChartDataSet(values: yVals2, label: "Bar Data")
-        
         lineChartSet.setColor(.red, alpha: 1)
         lineChartSet.setCircleColor(.green)
-        
-        
         
         let data : CombinedChartData = CombinedChartData(dataSets: [barChartSet, lineChartSet])
         data.barData = BarChartData(dataSet: barChartSet)
@@ -122,26 +101,6 @@ class NineStatsTableViewController: UITableViewController {
         
     }
 
-    
-    
-    
-    
-    
-
-    
-
-//    func updateChartWithData() {
-//        var dataEntries: [BarChartDataEntry] = []
-//        var ccDataEntries : [CombinedChartData] = []
-//        for i in 0...6 {
-//            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(Double(i) * 2/Double(i) * sin(Double(i))))
-////            let ccDataEntry = CombinedChartData(dataSet: IChartDataSet.addEntry(4 as! IChartDataSet))
-//            dataEntries.append(dataEntry)
-//        }
-//        let chartDataSet = BarChartDataSet(values: dataEntries, label: "Visitor count")
-//        let chartData = BarChartData(dataSet: chartDataSet)
-//        barTView.data = chartData
-//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
