@@ -27,16 +27,13 @@ class PlayerTableViewCell: FoldingCell {
     }
 
     func onSwipe(){
-        print("swiping...")
         if self.bounds.height == C.CellHeight.open{
-            if self.containerView.subviews[0].alpha == 1{
-                print("hiding...")
+            if self.containerView.subviews[0].alpha == 1 && self.containerView.subviews[1].alpha == 1{
                 for i in self.containerView.subviews{
                     i.alpha = 0
                 }
             }
             else{
-                print("coming back...")
                 for i in self.containerView.subviews{
                     i.alpha = 1
                 }
