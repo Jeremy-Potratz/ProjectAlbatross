@@ -26,17 +26,17 @@ class NineStatsTableViewController: UITableViewController {
     var newItems : [[String:AnyObject]] = [[:]]
 
     
-    func pullFirebase(path: String) {
+    
+    
+    func pullFirebase(path: String, kidName: String, statTrack: String) {
         
 
         if path == "Nine"{
             
-            print(path)
-
             reference(withPath: "Nine").observe(.value, with: { (snapshot) in
 
                 
-                for item in snapshot.childSnapshot(forPath: "scott").children{
+                for item in snapshot.childSnapshot(forPath: kidName).children{
                     //input name as function parameter for generalization
                     let masterItem = ((item as! FIRDataSnapshot).value as! [String : AnyObject])
                     print(masterItem)
@@ -49,7 +49,7 @@ class NineStatsTableViewController: UITableViewController {
                     for i in filter{
          
                         self.theXVal.append(String(describing: i["date"]!))
-                        self.theYVal.append(i["greens"] as! Double)
+                        self.theYVal.append(i[statTrack] as! Double)
                         self.yAvgVal.append(i["sneaks"] as! Double)
                     }
                 }
@@ -79,14 +79,39 @@ class NineStatsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pullFirebase(path: "Nine")
+        pullFirebase(path: "Nine", kidName: "greens", statTrack: "sneaks")
 
 
     }
+    
+    var sectionController : UISegmentedControl = { () -> UISegmentedControl in
+        var items = ["Birdies","GIR","Putts","Sneaks","Fairways","100 and in","Score","Short"]
+        var segment = UISegmentedControl()
+        segment = UISegmentedControl(items: items)
+        segment.backgroundColor = .red
+        segment.frame = CGRect(x: 100, y: 100, width: 600, height: 100)
+        segment.layer.cornerRadius = 5
+        
+        return segment
+    }()
+    
+    func evalTheSection(){
+        switch  sectionController.selectedSegmentIndex {
+        case 0:
+            print("Hi")
+        case 1:
+            print("Hello Numba one")
+        default:
+            print("NOOOO")
+        }
+    }
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
-        
+        view.addSubview(sectionController)
+        sectionController.addTarget(self, action: #selector(evalTheSection), for: .allEvents)
         
     }
     
@@ -97,10 +122,9 @@ class NineStatsTableViewController: UITableViewController {
         var yVals2 : [BarChartDataEntry] = [BarChartDataEntry]()
         
         for i in 0..<xValues.count {
-            
-            yVals1.append(ChartDataEntry(x: yValuesLineChart[i], y: Double(i)))
-            yVals2.append(BarChartDataEntry(x: yValuesBarChart[i] - 1, y: Double(i)))
-            // -1
+
+            yVals1.append(ChartDataEntry(x: Double(i), y: yValuesLineChart[i]))
+            yVals2.append(BarChartDataEntry(x: Double(i), y: yValuesBarChart[i] - 1))
         }
         
         let lineChartSet = LineChartDataSet(values: yVals1, label: "Line Data")
@@ -121,27 +145,6 @@ class NineStatsTableViewController: UITableViewController {
         view.bringSubview(toFront: self.barTView)
         
     }
-
-    
-    
-    
-    
-    
-
-    
-
-//    func updateChartWithData() {
-//        var dataEntries: [BarChartDataEntry] = []
-//        var ccDataEntries : [CombinedChartData] = []
-//        for i in 0...6 {
-//            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(Double(i) * 2/Double(i) * sin(Double(i))))
-////            let ccDataEntry = CombinedChartData(dataSet: IChartDataSet.addEntry(4 as! IChartDataSet))
-//            dataEntries.append(dataEntry)
-//        }
-//        let chartDataSet = BarChartDataSet(values: dataEntries, label: "Visitor count")
-//        let chartData = BarChartData(dataSet: chartDataSet)
-//        barTView.data = chartData
-//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
