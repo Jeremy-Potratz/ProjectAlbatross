@@ -19,30 +19,37 @@ class NineStatsTableViewController: UITableViewController {
     var newItems : [[String:AnyObject]] = [[:]]
     
     func pullFirebase(path: String, kidName: String, statTrack: String) {
-        
+        // does not work if you try and save before or after opening
 
+        
         if path == "Nine"{
             
             reference(withPath: "Nine").observe(.value, with: { (snapshot) in
 
                 
                 for item in snapshot.childSnapshot(forPath: kidName).children{
-                    //input name as function parameter for generalization
-
                     let masterItem = ((item as! FIRDataSnapshot).value as! [String : AnyObject])
-                    print(masterItem)
                     self.newItems.append(masterItem)
                     
                 }
-                let filter = self.newItems.filter {$0["name"] != nil }
+                let filter = self.newItems.filter {$0["name"] != nil && $0["date"] != nil}
                 print(filter)
+                
+                var avgCounter = 0.00
+                var avgTotal = 0.00
+                var avgY = 0.00
+                
+                
                 if filter.count != 0{
                     for i in filter{
-         // does not work if you try and save before or after opening
+                        
+                        avgCounter += 1
+                        avgTotal += i[statTrack] as! Double
+                        avgY = avgTotal / avgCounter
                         
                         self.theXVal.append(String(describing: i["date"]!))
-                        self.theYVal.append(i[statTrack] as! Double)
-                        self.yAvgVal.append(i["sneaks"] as! Double)
+                        self.theYVal.append(avgY)
+                        self.yAvgVal.append(i[statTrack] as! Double)
                     }
                 }
                 
@@ -67,7 +74,7 @@ class NineStatsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pullFirebase(path: "Nine", kidName: "greens", statTrack: "sneaks")
+        pullFirebase(path: "Nine", kidName: "scott", statTrack: "sneaks")
 
 
     }
@@ -87,10 +94,41 @@ class NineStatsTableViewController: UITableViewController {
         switch  sectionController.selectedSegmentIndex {
         case 0:
             print("Hi")
+            barTView.removeFromSuperview()
+            barTView.data?.clearValues()
+            // reset data??
+            // reset data!!
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "birdies")
         case 1:
+            barTView.removeFromSuperview()
+
+            barTView.data?.clearValues()
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "greens")
+            
+        case 2:
             print("Hello Numba one")
+
+            
+        case 3:
+            print("Hello Numba one")
+
+        case 4:
+            print("Hello Numba one")
+
+        case 5:
+            print("Hello Numba one")
+
+        case 6:
+            print("Hello Numba one")
+
+            
+        case 7:
+            print("Hello Numba one")
+
         default:
-            print("NOOOO")
+            
+            print("Hello Numba one")
+
         }
     }
     
@@ -110,7 +148,7 @@ class NineStatsTableViewController: UITableViewController {
         
         for i in 0..<xValues.count {
             yVals1.append(ChartDataEntry(x: Double(i), y: yValuesLineChart[i]))
-            yVals2.append(BarChartDataEntry(x: Double(i), y: yValuesBarChart[i] - 1))
+            yVals2.append(BarChartDataEntry(x: Double(i), y: yValuesBarChart[i]))
 
         }
         
