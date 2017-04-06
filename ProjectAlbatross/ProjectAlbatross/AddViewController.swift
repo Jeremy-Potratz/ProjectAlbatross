@@ -345,6 +345,9 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     
     override func viewDidLoad() {
+        print("-----")
+        print(FireFunctions.shared.Pull(path: "Nine", thisDate: "Mar 13, 2017"))
+        print("-----")
         super.viewDidLoad()
         self.initLeft()
         self.initRight()
