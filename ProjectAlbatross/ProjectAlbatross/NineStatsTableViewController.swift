@@ -32,8 +32,7 @@ class NineStatsTableViewController: UITableViewController {
                     self.newItems.append(masterItem)
                     
                 }
-                let filter = self.newItems.filter {$0["name"] != nil && $0["date"] != nil}
-                print(filter)
+                var filter = self.newItems.filter {$0["name"] != nil && $0["date"] != nil}
                 
                 var avgCounter = 0.00
                 var avgTotal = 0.00
@@ -60,6 +59,11 @@ class NineStatsTableViewController: UITableViewController {
                     self.setChart(xValues: self.theXVal, yValuesLineChart: self.theYVal, yValuesBarChart: self.yAvgVal)
              
                 }
+                filter = [[:]]
+                 avgCounter = 0.00
+                 avgTotal = 0.00
+                 avgY = 0.00
+                self.newItems = [[:]]
             })
         }
     }
@@ -74,8 +78,10 @@ class NineStatsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pullFirebase(path: "Nine", kidName: "scott", statTrack: "sneaks")
-
+        if (barTView != nil){
+        barTView.clear()
+        barTView.data?.clearValues()
+        }
 
     }
     
@@ -93,16 +99,31 @@ class NineStatsTableViewController: UITableViewController {
     func evalTheSection(){
         switch  sectionController.selectedSegmentIndex {
         case 0:
-            print("Hi")
+            if ((barTView) != nil){
             barTView.removeFromSuperview()
+            view.willRemoveSubview(barTView)
+                barTView.clear()
+            
             barTView.data?.clearValues()
-            // reset data??
-            // reset data!!
+            barTView.lineData?.clearValues()
+            barTView.barData?.clearValues()
+            }
+            theXVal = []
+            theYVal = []
+            yAvgVal = []
+            newItems = [[:]]
+            
             pullFirebase(path: "Nine", kidName: "scott", statTrack: "birdies")
         case 1:
             barTView.removeFromSuperview()
-
             barTView.data?.clearValues()
+            barTView.lineData?.clearValues()
+            barTView.barData?.clearValues()
+            theXVal = []
+            theYVal = []
+            yAvgVal = []
+            newItems = [[:]]
+            
             pullFirebase(path: "Nine", kidName: "scott", statTrack: "greens")
             
         case 2:

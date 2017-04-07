@@ -77,11 +77,11 @@ struct masterNine{
     
     public static func fetchAVG(snapshot: FIRDataSnapshot, AVG: String) -> [String : AnyObject]{
         
-        let snapshotValue = snapshot.value as! [String : AnyObject]
+        var snapshotValue = snapshot.value as! [String : AnyObject]
         
         return snapshotValue
         
-        
+        snapshotValue = [:]
     }
     
     func toAnyObject() -> Any {
