@@ -17,6 +17,7 @@ class NineStatsTableViewController: UITableViewController {
     var yAvgVal : [Double] = []
     var barTView : CombinedChartView!
     var newItems : [[String:AnyObject]] = [[:]]
+    var iter = 0
     
     func pullFirebase(path: String, kidName: String, statTrack: String) {
         // does not work if you try and save before or after opening
@@ -24,15 +25,25 @@ class NineStatsTableViewController: UITableViewController {
         
         if path == "Nine"{
             
+            print(theYVal,theXVal,yAvgVal)
+            self.newItems = [[:]]
+            self.theXVal = []
+            self.theYVal = []
+            self.yAvgVal = []
+            iter = 0
+            
             reference(withPath: "Nine").observe(.value, with: { (snapshot) in
 
-                
+                if self.iter == 0{
+
                 for item in snapshot.childSnapshot(forPath: kidName).children{
                     let masterItem = ((item as! FIRDataSnapshot).value as! [String : AnyObject])
                     self.newItems.append(masterItem)
                     
                 }
                 var filter = self.newItems.filter {$0["name"] != nil && $0["date"] != nil}
+                
+                
                 
                 var avgCounter = 0.00
                 var avgTotal = 0.00
@@ -55,6 +66,7 @@ class NineStatsTableViewController: UITableViewController {
                 if self.theXVal.count != 0{
                     
                     self.barTView = CombinedChartView(frame: CGRect(x: 200, y: 200, width: 500, height: 500))
+
                     
                     self.setChart(xValues: self.theXVal, yValuesLineChart: self.theYVal, yValuesBarChart: self.yAvgVal)
              
@@ -63,8 +75,13 @@ class NineStatsTableViewController: UITableViewController {
                  avgCounter = 0.00
                  avgTotal = 0.00
                  avgY = 0.00
-                self.newItems = [[:]]
+
+                    self.iter += 1
+                }
+                
             })
+            
+            
         }
     }
     
@@ -78,11 +95,16 @@ class NineStatsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (barTView != nil){
-        barTView.clear()
-        barTView.data?.clearValues()
+        
+        if (theXVal.count != 0){
+            barTView.removeFromSuperview()
+            view.willRemoveSubview(barTView)
+            barTView.clear()
+            
+            barTView.data?.clearValues()
+            barTView.lineData?.clearValues()
+            barTView.barData?.clearValues()
         }
-
     }
     
     var sectionController : UISegmentedControl = { () -> UISegmentedControl in
@@ -96,60 +118,66 @@ class NineStatsTableViewController: UITableViewController {
         return segment
     }()
     
+    func reset(){
+        if (theXVal.count != 0){
+            
+            barTView.removeFromSuperview()
+            view.willRemoveSubview(barTView)
+            barTView.clear()
+            barTView.data?.clearValues()
+            barTView.lineData?.clearValues()
+            barTView.barData?.clearValues()
+        }
+        theXVal = []
+        theYVal = []
+        yAvgVal = []
+        newItems = [[:]]
+    }
+    
     func evalTheSection(){
         switch  sectionController.selectedSegmentIndex {
         case 0:
-            if ((barTView) != nil){
-            barTView.removeFromSuperview()
-            view.willRemoveSubview(barTView)
-                barTView.clear()
-            
-            barTView.data?.clearValues()
-            barTView.lineData?.clearValues()
-            barTView.barData?.clearValues()
-            }
-            theXVal = []
-            theYVal = []
-            yAvgVal = []
-            newItems = [[:]]
+            reset()
             
             pullFirebase(path: "Nine", kidName: "scott", statTrack: "birdies")
+
         case 1:
-            barTView.removeFromSuperview()
-            barTView.data?.clearValues()
-            barTView.lineData?.clearValues()
-            barTView.barData?.clearValues()
-            theXVal = []
-            theYVal = []
-            yAvgVal = []
-            newItems = [[:]]
+            
+            reset()
             
             pullFirebase(path: "Nine", kidName: "scott", statTrack: "greens")
             
         case 2:
-            print("Hello Numba one")
-
+            reset()
+            
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "putts")
             
         case 3:
-            print("Hello Numba one")
-
+            reset()
+            
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "sneaks")
         case 4:
-            print("Hello Numba one")
-
+            reset()
+            
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "hundo")
         case 5:
-            print("Hello Numba one")
-
+            reset()
+            
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "fairways")
         case 6:
-            print("Hello Numba one")
-
+            reset()
+            
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "fairways")
             
         case 7:
-            print("Hello Numba one")
-
+            reset()
+            
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "fairways")
         default:
             
-            print("Hello Numba one")
-
+            reset()
+            
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "birdies")
         }
     }
     
@@ -185,7 +213,7 @@ class NineStatsTableViewController: UITableViewController {
         
         view.addSubview(self.barTView)
 
-        view.bringSubview(toFront: self.barTView)
+//        view.bringSubview(toFront: self.barTView)
         
     }
 
