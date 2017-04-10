@@ -13,23 +13,15 @@ import FirebaseDatabase
 class FireFunctions{
     
     static let shared = FireFunctions()
+            
+//            self.reference(withPath: "Nine").observe(.value, with: { (snapshot) in
+//                for i in snapshot.children.allObjects{
+//                    newItems?.append(i)
+//                }
+//            })
+
     
-    func Pull(path : String, thisDate : String) -> [masterNine]{
-        var newItems : [masterNine] = []
-        if path == "Nine"{
-            self.reference(withPath: "Nine").observe(.value, with: { (snapshot) in
-                for i in snapshot.children{
-                    let masterItem = masterNine(snapshot: i as! FIRDataSnapshot, theDate: thisDate)
-                    newItems.append(masterItem!)
-                }
-            })
-        }
-        else if path == "Eighteen"{
-        }
-        return newItems
-    }
-    
-    private func reference(withPath path: String) -> FIRDatabaseReference{
+    func reference(withPath path: String) -> FIRDatabaseReference{
         let ref = FIRDatabase.database().reference(withPath: path)
         return ref
     }

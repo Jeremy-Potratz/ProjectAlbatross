@@ -345,9 +345,16 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     
     override func viewDidLoad() {
-        print("-----")
-        print(FireFunctions.shared.Pull(path: "Nine", thisDate: "Mar 13, 2017"))
-        print("-----")
+        self.reference(withPath: "Nine").observe(.value, with: { (snapshot) in
+            var newItems : [[String : AnyObject]] = []
+            
+            for i in snapshot.childSnapshot(forPath: "scott").children{
+                let masterItem = (i as! FIRDataSnapshot).value as! [String : AnyObject]
+                newItems.append(masterItem)
+            }
+            
+            print(newItems)
+        })
         super.viewDidLoad()
         self.initLeft()
         self.initRight()
