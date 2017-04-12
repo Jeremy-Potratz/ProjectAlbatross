@@ -25,7 +25,6 @@ class NineStatsTableViewController: UITableViewController {
         
         if path == "Nine"{
             
-            print(theYVal,theXVal,yAvgVal)
             self.newItems = [[:]]
             self.theXVal = []
             self.theYVal = []
@@ -42,8 +41,12 @@ class NineStatsTableViewController: UITableViewController {
                     
                 }
                 var filter = self.newItems.filter {$0["name"] != nil && $0["date"] != nil}
+                    
+//                    days.sort({ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
+
+//                    filter.sort({})
                 
-                
+                //need to re arrange by date most recent
                 
                 var avgCounter = 0.00
                 var avgTotal = 0.00
@@ -51,24 +54,26 @@ class NineStatsTableViewController: UITableViewController {
                 
                 
                 if filter.count != 0{
+
                     for i in filter{
                         
                         avgCounter += 1
-                        avgTotal += i[statTrack] as! Double
+                        avgTotal += Double(i[statTrack]! as! NSNumber)
                         avgY = avgTotal / avgCounter
                         
                         self.theXVal.append(String(describing: i["date"]!))
+                        print(String(describing: (i["date"]!)))
                         self.theYVal.append(avgY)
-                        self.yAvgVal.append(i[statTrack] as! Double)
+                        self.yAvgVal.append(Double(i[statTrack]! as! NSNumber))
                     }
                 }
                 
                 if self.theXVal.count != 0{
                     
-                    self.barTView = CombinedChartView(frame: CGRect(x: 200, y: 200, width: 500, height: 500))
+                    self.barTView = CombinedChartView(frame: CGRect(x: 200, y: 200, width: 1000, height: 500))
 
                     
-                    self.setChart(xValues: self.theXVal, yValuesLineChart: self.theYVal, yValuesBarChart: self.yAvgVal)
+                    self.setChart(xValues: self.theXVal, yValuesLineChart: self.theYVal, yValuesBarChart: self.yAvgVal, statTrack: statTrack)
              
                 }
                 filter = [[:]]
@@ -94,18 +99,12 @@ class NineStatsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        reset()
         
-        
-        if (theXVal.count != 0){
-            barTView.removeFromSuperview()
-            view.willRemoveSubview(barTView)
-            barTView.clear()
-            
-            barTView.data?.clearValues()
-            barTView.lineData?.clearValues()
-            barTView.barData?.clearValues()
-        }
     }
+    
+        
     
     var sectionController : UISegmentedControl = { () -> UISegmentedControl in
         var items = ["Birdies","GIR","Putts","Sneaks","Fairways","100 and in","Score","Short"]
@@ -159,37 +158,40 @@ class NineStatsTableViewController: UITableViewController {
         case 4:
             reset()
             
-            pullFirebase(path: "Nine", kidName: "scott", statTrack: "hundo")
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "fairways")
         case 5:
             reset()
             
-            pullFirebase(path: "Nine", kidName: "scott", statTrack: "fairways")
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "hundo")
         case 6:
             reset()
             
-            pullFirebase(path: "Nine", kidName: "scott", statTrack: "fairways")
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "score")
             
         case 7:
             reset()
             
-            pullFirebase(path: "Nine", kidName: "scott", statTrack: "fairways")
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "short")
         default:
             
             reset()
             
-            pullFirebase(path: "Nine", kidName: "scott", statTrack: "birdies")
+            pullFirebase(path: "Nine", kidName: "scott", statTrack: "")
         }
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+
+        reset()
+
         view.addSubview(sectionController)
         sectionController.addTarget(self, action: #selector(evalTheSection), for: .allEvents)
 
     }
     
-    func setChart(xValues: [String], yValuesLineChart: [Double], yValuesBarChart: [Double]) {
+    func setChart(xValues: [String], yValuesLineChart: [Double], yValuesBarChart: [Double], statTrack: String) {
         barTView.noDataText = "Please provide data for the chart."
         
         var yVals1 : [ChartDataEntry] = [ChartDataEntry]()
@@ -201,20 +203,22 @@ class NineStatsTableViewController: UITableViewController {
 
         }
         
-        let lineChartSet = LineChartDataSet(values: yVals1, label: "Line Data")
-        let barChartSet: BarChartDataSet = BarChartDataSet(values: yVals2, label: "Bar Data")
+        let lineChartSet = LineChartDataSet(values: yVals1, label: "Average \(statTrack)")
+        let barChartSet: BarChartDataSet = BarChartDataSet(values: yVals2, label: "\(statTrack)")
         lineChartSet.setColor(.red, alpha: 1)
         lineChartSet.setCircleColor(.green)
+        
+        
+        
         
         let data : CombinedChartData = CombinedChartData(dataSets: [barChartSet, lineChartSet])
         data.barData = BarChartData(dataSet: barChartSet)
         data.lineData = LineChartData(dataSet: lineChartSet)
         barTView.data = data
         
-        view.addSubview(self.barTView)
-
-//        view.bringSubview(toFront: self.barTView)
+        barTView.xAxis.valueFormatter = IndexAxisValueFormatter(values: xValues)
         
+        view.addSubview(self.barTView)
     }
 
 
