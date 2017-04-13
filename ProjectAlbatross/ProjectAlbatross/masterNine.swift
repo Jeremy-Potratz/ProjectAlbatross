@@ -26,8 +26,9 @@ struct masterNine{
     let sneaks : Int!
     let opponentScore : Int!
     let opponentName : String!
+    let timeStamp : Double!
     
-    init(key: String = "", name: String, birdies: Int, putts: Int, short: Int, hundo: Int, greens: Int, score: Int, sneaks: Int, fairways: Int, date: String, opponentScore: Int, opponentName: String){
+    init(key: String = "", name: String, birdies: Int, putts: Int, short: Int, hundo: Int, greens: Int, score: Int, sneaks: Int, fairways: Int, date: String, opponentScore: Int, opponentName: String, timeStamp: Double){
         
         self.ref = nil
         self.key = key
@@ -41,6 +42,7 @@ struct masterNine{
         self.sneaks = sneaks
         self.date = date
         self.fairways = fairways
+        self.timeStamp = timeStamp
         
         self.opponentName = opponentName
         self.opponentScore = opponentScore
@@ -70,6 +72,7 @@ struct masterNine{
             fairways = (snapshotValue[theDate]!["fairways"] as! Int)
             opponentScore = (snapshotValue[theDate]!["opponentScore"] as! Int)
             opponentName = (snapshotValue[theDate]!["opponentName"] as! String)
+            timeStamp = (snapshotValue[theDate]!["timeStamp"] as! Double)
             
         }
         ref = snapshot.ref
@@ -81,7 +84,6 @@ struct masterNine{
         
         return snapshotValue
         
-        snapshotValue = [:]
     }
     
     func toAnyObject() -> Any {
@@ -99,6 +101,7 @@ struct masterNine{
             "fairways" : fairways ,
             "opponentName" : opponentName ,
             "opponentScore" : opponentScore ,
+            "timeStamp" : timeStamp
         ]
         
     }

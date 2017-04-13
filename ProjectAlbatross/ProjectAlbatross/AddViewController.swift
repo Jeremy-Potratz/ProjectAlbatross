@@ -235,7 +235,17 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         print(self.mode)
         
         if mode == "nine"{
-            let nineStat = masterNine(name: name, birdies: Int(((textBoxContainer.subviews[6] as? UITextField)?.text)!)!, putts: Int(((textBoxContainer.subviews[1] as? UITextField)?.text)!)!, short: Int(((textBoxContainer.subviews[7] as? UITextField)?.text)!)!, hundo: Int(((textBoxContainer.subviews[2] as? UITextField)?.text)!)!, greens: Int(((textBoxContainer.subviews[3] as? UITextField)?.text)!)!, score: Int(((textBoxContainer.subviews[5] as? UITextField)?.text)!)!, sneaks: Int(((textBoxContainer.subviews[4] as? UITextField)?.text)!)!, fairways: Int(((textBoxContainer.subviews[0] as? UITextField)?.text)!)!, date: date, opponentScore: Int(((textBoxContainer.subviews[9] as? UITextField)?.text)!)!, opponentName: ((textBoxContainer.subviews[8] as? UITextField)?.text)!)
+            
+//            let timestamp = (Date().timeIntervalSince1970 as NSString).doubleValue
+            
+            let theDate = Date()
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
+            formatter.timeZone = TimeZone(abbreviation: "UTC")
+            let utcTimeZoneDouble = Double(formatter.string(from: theDate))
+            
+            let nineStat = masterNine(name: name, birdies: Int(((textBoxContainer.subviews[6] as? UITextField)?.text)!)!, putts: Int(((textBoxContainer.subviews[1] as? UITextField)?.text)!)!, short: Int(((textBoxContainer.subviews[7] as? UITextField)?.text)!)!, hundo: Int(((textBoxContainer.subviews[2] as? UITextField)?.text)!)!, greens: Int(((textBoxContainer.subviews[3] as? UITextField)?.text)!)!, score: Int(((textBoxContainer.subviews[5] as? UITextField)?.text)!)!, sneaks: Int(((textBoxContainer.subviews[4] as? UITextField)?.text)!)!, fairways: Int(((textBoxContainer.subviews[0] as? UITextField)?.text)!)!, date: date, opponentScore: Int(((textBoxContainer.subviews[9] as? UITextField)?.text)!)!, opponentName: ((textBoxContainer.subviews[8] as? UITextField)?.text)!, timeStamp: utcTimeZoneDouble!)
             let nineStatRef = self.reference(withPath: "Nine").child(name.lowercased()).child(date)
             nineStatRef.setValue(nineStat.toAnyObject())
 

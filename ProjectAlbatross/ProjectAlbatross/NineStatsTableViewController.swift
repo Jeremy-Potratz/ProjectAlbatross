@@ -11,6 +11,8 @@ import Charts
 import Firebase
 import FirebaseDatabase
 
+
+
 class NineStatsTableViewController: UITableViewController {
     var theXVal : [String] = []
     var theYVal : [Double] = []
@@ -42,12 +44,6 @@ class NineStatsTableViewController: UITableViewController {
                 }
                 var filter = self.newItems.filter {$0["name"] != nil && $0["date"] != nil}
                     
-//                    days.sort({ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
-
-//                    filter.sort({})
-                
-                //need to re arrange by date most recent
-                
                 var avgCounter = 0.00
                 var avgTotal = 0.00
                 var avgY = 0.00
