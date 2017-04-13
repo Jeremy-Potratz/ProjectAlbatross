@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 public struct C {
     struct CellHeight {
@@ -23,6 +25,26 @@ class PlayerTableViewController: UITableViewController {
         super.viewDidLoad()
         let nib = UINib(nibName: "PlayerTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "playerCell")
+        
+        self.reference(withPath: "Nine").observe(.value, with: { (snapshot) in
+            var newPlayers : [String] = []
+            for i in snapshot.children{
+                let masterItem = (i as! FIRDataSnapshot).value as! [String : AnyObject]
+                for (_, value) in masterItem{
+                    let name : String = value["name"] as! String
+                    if newPlayers.contains(name) == false{
+                        newPlayers.append(name)
+                    }
+                }
+            }
+            self.cellHeights = (0..<newPlayers.count).map { _ in C.CellHeight.close}
+            self.tableView.reloadData()
+        })
+    }
+    
+    func reference(withPath path: String) -> FIRDatabaseReference{
+        let ref = FIRDatabase.database().reference(withPath: path)
+        return ref
         
     }
 
@@ -82,7 +104,7 @@ class PlayerTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return self.cellHeights.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

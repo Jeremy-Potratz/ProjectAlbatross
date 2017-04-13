@@ -345,24 +345,7 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     
     override func viewDidLoad() {
-        self.reference(withPath: "Nine").observe(.value, with: { (snapshot) in
-            var newItems : [[String : AnyObject]] = []
-            var newPlayers : [String] = []
-            for i in snapshot.children{
-                var masterItem = (i as! FIRDataSnapshot).value as! [String : AnyObject]
-                for (key, value) in masterItem{
-                    let name : String = value["name"] as! String
-                    if newPlayers.contains(name) == false{
-                        newPlayers.append(name)
-                    }
-                }
-                
-                newItems.append(masterItem)
-            }
-            
-            print(newItems)
-            print(newPlayers)
-        })
+        
         super.viewDidLoad()
         self.initLeft()
         self.initRight()
