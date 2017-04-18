@@ -6,28 +6,28 @@
 	<dict>
 		<key>Charts.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>GoogleToolboxForMac.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-ProjectAlbatross.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-ProjectAlbatrossTests.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-ProjectAlbatrossUITests.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -43,11 +43,6 @@
 			<true/>
 		</dict>
 		<key>6B9B3A7DBE9A3E712B2BFC00AC86128F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A384AA010C2CF2B56BC9623E9E2DDC65</key>
 		<dict>
 			<key>primary</key>
 			<true/>
