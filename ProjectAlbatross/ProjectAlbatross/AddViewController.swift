@@ -237,6 +237,8 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         if mode == "nine"{
             
 //            let timestamp = (Date().timeIntervalSince1970 as NSString).doubleValue
+            //figure out not updating timestamp so i can arrange by the time
+            
             
             let theDate = Date()
             let formatter = DateFormatter()
@@ -248,6 +250,10 @@ class AddViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDat
             let nineStat = masterNine(name: name, birdies: Int(((textBoxContainer.subviews[6] as? UITextField)?.text)!)!, putts: Int(((textBoxContainer.subviews[1] as? UITextField)?.text)!)!, short: Int(((textBoxContainer.subviews[7] as? UITextField)?.text)!)!, hundo: Int(((textBoxContainer.subviews[2] as? UITextField)?.text)!)!, greens: Int(((textBoxContainer.subviews[3] as? UITextField)?.text)!)!, score: Int(((textBoxContainer.subviews[5] as? UITextField)?.text)!)!, sneaks: Int(((textBoxContainer.subviews[4] as? UITextField)?.text)!)!, fairways: Int(((textBoxContainer.subviews[0] as? UITextField)?.text)!)!, date: date, opponentScore: Int(((textBoxContainer.subviews[9] as? UITextField)?.text)!)!, opponentName: ((textBoxContainer.subviews[8] as? UITextField)?.text)!, timeStamp: utcTimeZoneDouble!)
             let nineStatRef = self.reference(withPath: "Nine").child(name.lowercased()).child(date)
             nineStatRef.setValue(nineStat.toAnyObject())
+            
+            
+            
+            
 
         }else{
             let eighteenStat = masterEighteen(name: name, birdsFront: Int(((textBoxContainer.subviews[5] as? UITextField)?.text)!)!, puttsFront: Int(((textBoxContainer.subviews[6] as? UITextField)?.text)!)!, shortFront: Int(((textBoxContainer.subviews[2] as? UITextField)?.text)!)!, hundoFront: Int(((textBoxContainer.subviews[3] as? UITextField)?.text)!)!, greensFront: Int(((textBoxContainer.subviews[1] as? UITextField)?.text)!)!, scoreFront: Int(((textBoxContainer.subviews[7] as? UITextField)?.text)!)!, sneaksFront: Int(((textBoxContainer.subviews[4] as? UITextField)?.text)!)!, fairwaysFront: Int(((textBoxContainer.subviews[0] as? UITextField)?.text)!)!, birdsBack: Int(((textBoxContainer.subviews[13] as? UITextField)?.text)!)!, puttsBack: Int(((textBoxContainer.subviews[10] as? UITextField)?.text)!)!, shortBack: Int(((textBoxContainer.subviews[14] as? UITextField)?.text)!)!, hundoBack: Int(((textBoxContainer.subviews[11] as? UITextField)?.text)!)!, greensBack: Int(((textBoxContainer.subviews[9] as? UITextField)?.text)!)!, scoreBack: Int(((textBoxContainer.subviews[15] as? UITextField)?.text)!)!, sneaksBack: Int(((textBoxContainer.subviews[12] as? UITextField)?.text)!)!, fairwaysBack: Int(((textBoxContainer.subviews[8] as? UITextField)?.text)!)!, date: date, opponentScore: 0, opponentName: "")

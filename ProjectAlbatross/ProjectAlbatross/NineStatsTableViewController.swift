@@ -22,8 +22,6 @@ class NineStatsTableViewController: UITableViewController {
     var iter = 0
     
     func pullFirebase(path: String, kidName: String, statTrack: String) {
-        // does not work if you try and save before or after opening
-
         
         if path == "Nine"{
             
