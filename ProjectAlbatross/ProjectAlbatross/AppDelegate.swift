@@ -15,12 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow? = UIWindow(frame: UIScreen.main.bounds)
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        FIRApp.configure()
+
         window?.rootViewController = TabController()
         application.isStatusBarHidden = true
         window?.makeKeyAndVisible()
-        FIRApp.configure()
         
         // Override point for customization after application launch.
         return true
