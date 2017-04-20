@@ -13,7 +13,8 @@ class TabController: UITabBarController {
     let addTab = { () -> AddViewController in
         let screen = UIScreen.main.bounds
         let vc = AddViewController()
-        vc.tabBarItem = UITabBarItem(title: "Add", image: nil, tag: 2)
+        let tab = UITabBarItem(title: "Add", image: nil, tag: 2)
+        vc.tabBarItem = tab
         return vc
     }()
     
