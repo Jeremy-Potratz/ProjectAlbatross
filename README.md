@@ -6,3 +6,4 @@ and either 9 or 18 holes.
 Update to latest XCode version
 Fix warnings
 Add the graphs and stuff 
+edit .gitignore
